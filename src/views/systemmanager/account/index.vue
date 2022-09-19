@@ -10,11 +10,6 @@
           <TableAction
             :actions="[
               {
-                icon: 'clarity:info-standard-line',
-                tooltip: '查看用户详情',
-                onClick: handleView.bind(null, record),
-              },
-              {
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑用户资料',
                 onClick: handleEdit.bind(null, record),
@@ -41,7 +36,7 @@
   import { defineComponent, reactive } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getAccountList } from '/@/api/systemmanager/system';
+  import { getAccountList, removeAccount } from '/@/api/systemmanager/system';
   import { PageWrapper } from '/@/components/Page';
   import DeptTree from './DeptTree.vue';
 
@@ -90,18 +85,22 @@
       }
 
       function handleEdit(record: Recordable) {
-        console.log(record);
+        // console.log(record);
         openModal(true, {
           record,
           isUpdate: true,
         });
       }
 
-      function handleDelete(record: Recordable) {
-        console.log(record);
+      async function handleDelete(record: Recordable) {
+        // console.log(record);
+        await removeAccount(record.id).then(() => {
+          reload();
+        });
       }
 
       function handleSuccess({ isUpdate, values }) {
+        /*
         if (isUpdate) {
           // 演示不刷新表格直接更新内部数据。
           // 注意：updateTableDataRecord要求表格的rowKey属性为string并且存在于每一行的record的keys中
@@ -110,6 +109,8 @@
         } else {
           reload();
         }
+        */
+        reload();
       }
 
       function handleSelect(deptId = '') {

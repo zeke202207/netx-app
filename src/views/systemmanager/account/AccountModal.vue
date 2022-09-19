@@ -8,7 +8,7 @@
   import { BasicModal, useModalInner } from '/@/components/Modal';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { accountFormSchema } from './account.data';
-  import { getDeptList } from '/@/api/systemmanager/system';
+  import { getDeptList, updateAccount, addAccount } from '/@/api/systemmanager/system';
 
   export default defineComponent({
     name: 'AccountModal',
@@ -47,7 +47,7 @@
             show: !unref(isUpdate),
           },
           {
-            field: 'dept',
+            field: 'deptid',
             componentProps: { treeData },
           },
         ]);
@@ -60,7 +60,12 @@
           const values = await validate();
           setModalProps({ confirmLoading: true });
           // TODO custom api
-          console.log(values);
+          // console.log(values);
+          if (!unref(isUpdate)) {
+            await addAccount(values);
+          } else {
+            await updateAccount(values);
+          }
           closeModal();
           emit('success', { isUpdate: unref(isUpdate), values: { ...values, id: rowId.value } });
         } finally {

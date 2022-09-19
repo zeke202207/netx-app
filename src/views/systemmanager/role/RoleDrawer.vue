@@ -12,7 +12,7 @@
         <BasicTree
           v-model:value="model[field]"
           :treeData="treeData"
-          :fieldNames="{ title: 'menuName', key: 'id' }"
+          :fieldNames="{ title: 'name', key: 'id' }"
           checkable
           toolbar
           title="菜单分配"
@@ -28,7 +28,7 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
 
-  import { getMenuList } from '/@/api/systemmanager/system';
+  import { getMenuList, updateRole, addRole } from '/@/api/systemmanager/system';
 
   export default defineComponent({
     name: 'RoleDrawer',
@@ -68,7 +68,12 @@
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
-          console.log(values);
+          // console.log(values);
+          if (unref(isUpdate)) {
+            await updateRole(values);
+          } else {
+            await addRole(values);
+          }
           closeDrawer();
           emit('success');
         } finally {

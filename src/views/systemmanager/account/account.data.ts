@@ -5,7 +5,7 @@ import { FormSchema } from '/@/components/Table';
 export const columns: BasicColumn[] = [
   {
     title: '用户名',
-    dataIndex: 'account',
+    dataIndex: 'username',
     width: 120,
   },
   {
@@ -14,19 +14,14 @@ export const columns: BasicColumn[] = [
     width: 120,
   },
   {
+    title: '角色',
+    dataIndex: 'rolename',
+    width: 200,
+  },
+  {
     title: '邮箱',
     dataIndex: 'email',
-    width: 120,
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
     width: 180,
-  },
-  {
-    title: '角色',
-    dataIndex: 'role',
-    width: 200,
   },
   {
     title: '备注',
@@ -51,7 +46,14 @@ export const searchFormSchema: FormSchema[] = [
 
 export const accountFormSchema: FormSchema[] = [
   {
-    field: 'userName',
+    field: 'id',
+    label: 'id',
+    component: 'Input',
+    required: false,
+    show: false,
+  },
+  {
+    field: 'username',
     label: '用户名',
     component: 'Input',
     //helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],
@@ -60,6 +62,7 @@ export const accountFormSchema: FormSchema[] = [
         required: true,
         message: '请输入用户名',
       },
+      /*
       {
         validator(_, value) {
           return new Promise((resolve, reject) => {
@@ -71,6 +74,7 @@ export const accountFormSchema: FormSchema[] = [
           });
         },
       },
+      */
     ],
   },
   {
@@ -88,7 +92,7 @@ export const accountFormSchema: FormSchema[] = [
   },
   {
     label: '角色',
-    field: 'roleId',
+    field: 'roleid',
     component: 'ApiSelect',
     componentProps: {
       api: getAllRoleList,
@@ -99,7 +103,7 @@ export const accountFormSchema: FormSchema[] = [
     required: false,
   },
   {
-    field: 'deptId',
+    field: 'deptid',
     label: '所属部门',
     component: 'TreeSelect',
     componentProps: {

@@ -33,7 +33,7 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getRoleListByPage } from '/@/api/systemmanager/system';
+  import { getRoleListByPage, removeRole } from '/@/api/systemmanager/system';
 
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
@@ -79,8 +79,11 @@
         });
       }
 
-      function handleDelete(record: Recordable) {
-        console.log(record);
+      async function handleDelete(record: Recordable) {
+        // console.log(record);
+        await removeRole(record.id).then(() => {
+          reload();
+        });
       }
 
       function handleSuccess() {
