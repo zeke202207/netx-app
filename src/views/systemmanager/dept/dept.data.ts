@@ -6,13 +6,13 @@ import { Tag } from 'ant-design-vue';
 export const columns: BasicColumn[] = [
   {
     title: '部门名称',
-    dataIndex: 'deptName',
+    dataIndex: 'deptname',
     width: 160,
     align: 'left',
   },
   {
     title: '排序',
-    dataIndex: 'orderNo',
+    dataIndex: 'orderno',
     width: 50,
   },
   {
@@ -29,7 +29,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '创建时间',
-    dataIndex: 'createTime',
+    dataIndex: 'createtime',
     width: 180,
   },
   {
@@ -70,19 +70,18 @@ export const formSchema: FormSchema[] = [
     show: false,
   },
   {
-    field: 'deptName',
+    field: 'deptname',
     label: '部门名称',
     component: 'Input',
     required: true,
   },
   {
-    field: 'parentId',
+    field: 'parentid',
     label: '上级部门',
     component: 'TreeSelect',
-
     componentProps: {
       fieldNames: {
-        label: 'deptName',
+        label: 'deptname',
         key: 'id',
         value: 'id',
       },
@@ -91,7 +90,7 @@ export const formSchema: FormSchema[] = [
     required: false,
   },
   {
-    field: 'orderNo',
+    field: 'orderno',
     label: '排序',
     component: 'InputNumber',
     required: true,

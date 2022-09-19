@@ -33,6 +33,16 @@ export interface AccountListItem {
   status: number;
 }
 
+export interface AccountItem {
+  id: string;
+  deptId: string;
+  email: string;
+  nickName: string;
+  remark: string;
+  roleId: string;
+  userName: string;
+}
+
 export interface DeptListItem {
   id: string;
   orderNo: string;
@@ -81,6 +91,14 @@ export interface RoleListItem {
   status: number;
   orderNo: string;
   createTime: string;
+}
+
+export interface RoleItem {
+  id: string;
+  relename: string;
+  status: string;
+  remark: string;
+  menu: string[];
 }
 
 /**

@@ -11,16 +11,20 @@ import {
   RoleListGetResultModel,
   DeptItem,
   MenuItem,
+  AccountItem,
+  RoleItem,
 } from './model/systemModel';
 import { defHttp } from '/@/utils/http/axios';
 
 enum Api {
   AccountList = '/account/getAccountList',
-  setRoleStatus = '/role/setRoleStatus',
   RolePageList = '/role/getRoleListByPage',
   GetAllRoleList = '/role/getAllRoleList',
 
   IsAccountExist = '/account/isAccountExist',
+  AddAccount = '/account/AddAccount',
+  UpdateAccount = '/account/UpdateAccount',
+  RemoveAccount = '/account/RemoveAccount',
 
   DeptList = '/dept/getDeptList',
   AddDept = '/dept/addDept',
@@ -31,6 +35,11 @@ enum Api {
   AddMenu = '/menu/addMenu',
   UpdateMenu = '/menu/updateMenu',
   RemoveMenu = '/menu/removeMenu',
+
+  AddRole = '/role/addRole',
+  UpdateRole = '/role/updateRole',
+  RemoveRole = '/role/removeRole',
+  SetRoleStatus = '/role/setRoleStatus',
 }
 
 /** dept***/
@@ -54,6 +63,21 @@ export const removeMenu = (id: string) =>
 /** account */
 export const isAccountExist = (account: string) =>
   defHttp.get({ url: Api.IsAccountExist, params: { account } }, { errorMessageMode: 'none' });
+export const addAccount = (params?: AccountItem) =>
+  defHttp.post<boolean>({ url: Api.AddAccount, params });
+export const updateAccount = (params?: AccountItem) =>
+  defHttp.post<boolean>({ url: Api.UpdateAccount, params });
+export const removeAccount = (id: string) =>
+  defHttp.delete<boolean>({ url: Api.RemoveAccount, params: { id } });
+
+/** role */
+export const addRole = (params?: RoleItem) => defHttp.post<boolean>({ url: Api.AddRole, params });
+export const updateRole = (params?: RoleItem) =>
+  defHttp.post<boolean>({ url: Api.UpdateRole, params });
+export const removeRole = (id: string) =>
+  defHttp.delete<boolean>({ url: Api.RemoveRole, params: { id } });
+export const setRoleStatus = (id: string, status: string) =>
+  defHttp.post({ url: Api.SetRoleStatus, params: { id, status } });
 
 export const getAccountList = (params: AccountParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.AccountList, params });
@@ -63,6 +87,3 @@ export const getRoleListByPage = (params?: RolePageParams) =>
 
 export const getAllRoleList = (params?: RoleParams) =>
   defHttp.get<RoleListGetResultModel>({ url: Api.GetAllRoleList, params });
-
-export const setRoleStatus = (id: number, status: string) =>
-  defHttp.post({ url: Api.setRoleStatus, params: { id, status } });
