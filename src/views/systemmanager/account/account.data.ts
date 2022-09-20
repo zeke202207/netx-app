@@ -96,7 +96,7 @@ export const accountFormSchema: FormSchema[] = [
     component: 'ApiSelect',
     componentProps: {
       api: getAllRoleList,
-      labelField: 'roleName',
+      labelField: 'rolename',
       //valueField: 'roleValue',
       valueField: 'id',
     },
@@ -108,7 +108,7 @@ export const accountFormSchema: FormSchema[] = [
     component: 'TreeSelect',
     componentProps: {
       fieldNames: {
-        label: 'deptName',
+        label: 'deptname',
         key: 'id',
         value: 'id',
       },
