@@ -37,8 +37,8 @@ export interface FieldNames {
 export type KeyType = string | number;
 
 export type CheckKeys =
-  | KeyType[]
-  | { checked: string[] | number[]; halfChecked: string[] | number[] };
+  // | KeyType[] //delete by zeke
+  { checked: string[] | number[]; halfChecked: string[] | number[] };
 
 export const treeProps = buildProps({
   value: {

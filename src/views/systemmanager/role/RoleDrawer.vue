@@ -14,7 +14,8 @@
           :treeData="treeData"
           :fieldNames="{ title: 'name', key: 'id' }"
           checkable
-          toolbar
+          :toolbar="false"
+          :checkStrictly="true"
           title="菜单分配"
         />
       </template>
@@ -68,7 +69,7 @@
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
           // TODO custom api
-          // console.log(values);
+          console.log(values);
           if (unref(isUpdate)) {
             await updateRole(values);
           } else {

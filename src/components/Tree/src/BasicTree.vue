@@ -89,6 +89,8 @@
           },
           onCheck: (v: CheckKeys, e) => {
             let currentValue = toRaw(state.checkedKeys) as KeyType[];
+            let halfChecked = e.halfCheckedKeys;
+            console.log(halfChecked);
             if (isArray(currentValue) && searchState.startSearch) {
               const { key } = unref(getFieldNames);
               currentValue = difference(currentValue, getChildrenKeys(e.node.$attrs.node[key]));
@@ -97,7 +99,11 @@
               }
               state.checkedKeys = currentValue;
             } else {
-              state.checkedKeys = v;
+              if (isArray(v)) {
+                state.checkedKeys = { checked: v, halfChecked: halfChecked };
+              } else {
+                state.checkedKeys = v;
+              }
             }
 
             const rawVal = toRaw(state.checkedKeys);

@@ -169,6 +169,7 @@
             value.checked.length === 0 &&
             value.halfChecked.length === 0
           ) {
+            // console.log(msg);
             // 非关联选择的tree组件
             return Promise.reject(msg);
           }

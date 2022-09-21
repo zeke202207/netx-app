@@ -71,7 +71,7 @@ export interface MenuListItem {
 
 export interface MenuItem {
   id: string;
-  parentId: string;
+  parentid: string;
   path: string;
   name: string;
   component: string;

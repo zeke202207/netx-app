@@ -30,7 +30,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '排序',
-    dataIndex: 'orderNo',
+    dataIndex: 'orderno',
     width: 50,
   },
   {
@@ -47,7 +47,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '创建时间',
-    dataIndex: 'createTime',
+    dataIndex: 'createtime',
     width: 180,
   },
 ];
@@ -55,6 +55,7 @@ export const columns: BasicColumn[] = [
 const isDir = (type: string) => type === '0';
 const isMenu = (type: string) => type === '1';
 const isButton = (type: string) => type === '2';
+const isExt = (type: string) => type === '1';
 
 export const searchFormSchema: FormSchema[] = [
   /*
@@ -109,7 +110,7 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'parentId',
+    field: 'parentid',
     label: '上级菜单',
     component: 'TreeSelect',
     componentProps: {
@@ -123,7 +124,7 @@ export const formSchema: FormSchema[] = [
   },
 
   {
-    field: 'orderNo',
+    field: 'orderno',
     label: '排序',
     component: 'InputNumber',
     required: true,
@@ -135,13 +136,18 @@ export const formSchema: FormSchema[] = [
     required: true,
     ifShow: ({ values }) => !isButton(values.type),
   },
-
   {
     field: 'path',
     label: '路由地址',
     component: 'Input',
     required: true,
     ifShow: ({ values }) => !isButton(values.type),
+  },
+  {
+    field: 'extpath',
+    label: '外链地址',
+    component: 'Input',
+    ifShow: ({ values }) => isExt(values.isext),
   },
   {
     field: 'component',
@@ -168,7 +174,7 @@ export const formSchema: FormSchema[] = [
     },
   },
   {
-    field: 'isExt',
+    field: 'isext',
     label: '是否外链',
     component: 'RadioButtonGroup',
     defaultValue: '0',
@@ -199,11 +205,11 @@ export const formSchema: FormSchema[] = [
     field: 'show',
     label: '是否显示',
     component: 'RadioButtonGroup',
-    defaultValue: '0',
+    defaultValue: '1',
     componentProps: {
       options: [
-        { label: '是', value: '0' },
-        { label: '否', value: '1' },
+        { label: '否', value: '0' },
+        { label: '是', value: '1' },
       ],
     },
     ifShow: ({ values }) => !isButton(values.type),
