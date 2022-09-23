@@ -13,6 +13,8 @@ import {
   MenuItem,
   AccountItem,
   RoleItem,
+  ApiPageParams,
+  ApiPageListResultModel
 } from './model/systemModel';
 import { defHttp } from '/@/utils/http/axios';
 
@@ -40,6 +42,8 @@ enum Api {
   UpdateRole = '/role/updateRole',
   RemoveRole = '/role/removeRole',
   SetRoleStatus = '/role/setRoleStatus',
+
+  ApiPageList ='/api/getApiList'
 }
 
 /** dept***/
@@ -87,3 +91,7 @@ export const getRoleListByPage = (params?: RolePageParams) =>
 
 export const getAllRoleList = (params?: RoleParams) =>
   defHttp.get<RoleListGetResultModel>({ url: Api.GetAllRoleList, params });
+
+/** API */
+export const getListByPage = (params?: ApiPageParams) =>
+  defHttp.post<ApiPageListResultModel>({ url: Api.ApiPageList, params });
