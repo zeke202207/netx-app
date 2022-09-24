@@ -56,6 +56,7 @@ export const accountFormSchema: FormSchema[] = [
     field: 'username',
     label: '用户名',
     component: 'Input',
+    dynamicDisabled: ({ values }) => values.id != undefined && values.id != null,
     //helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],
     rules: [
       {
