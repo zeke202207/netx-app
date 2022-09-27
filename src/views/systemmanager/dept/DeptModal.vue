@@ -1,18 +1,24 @@
 <template>
-  <BasicModal v-bind="$attrs" @register="registerModal" :title="getTitle" @ok="handleSubmit">
+  <BasicDrawer
+    v-bind="$attrs"
+    @register="registerDrawer"
+    showFooter
+    :title="getTitle"
+    @ok="handleSubmit"
+  >
     <BasicForm @register="registerForm" />
-  </BasicModal>
+  </BasicDrawer>
 </template>
 <script lang="ts">
   import { defineComponent, ref, computed, unref } from 'vue';
-  import { BasicModal, useModalInner } from '/@/components/Modal';
+  import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './dept.data';
 
   import { getDeptList, addDept, updateDept } from '/@/api/systemmanager/system';
   export default defineComponent({
-    name: 'DeptModal',
-    components: { BasicModal, BasicForm },
+    name: 'DeptDrawer',
+    components: { BasicDrawer, BasicForm },
     emits: ['success', 'register'],
     setup(_, { emit }) {
       const isUpdate = ref(true);
@@ -24,9 +30,9 @@
         showActionButtonGroup: false,
       });
 
-      const [registerModal, { setModalProps, closeModal }] = useModalInner(async (data) => {
+      const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
         resetFields();
-        setModalProps({ confirmLoading: false });
+        setDrawerProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
 
         if (unref(isUpdate)) {
@@ -46,21 +52,21 @@
       async function handleSubmit() {
         try {
           const values = await validate();
-          setModalProps({ confirmLoading: true });
+          setDrawerProps({ confirmLoading: true });
           // TODO custom api
           if (!unref(isUpdate)) {
             await addDept(values);
           } else {
             await updateDept(values);
           }
-          closeModal();
+          closeDrawer();
           emit('success');
         } finally {
-          setModalProps({ confirmLoading: false });
+          setDrawerProps({ confirmLoading: false });
         }
       }
 
-      return { registerModal, registerForm, getTitle, handleSubmit };
+      return { registerDrawer, registerForm, getTitle, handleSubmit };
     },
   });
 </script>

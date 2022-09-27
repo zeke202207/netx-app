@@ -26,7 +26,7 @@
         </template>
       </template>
     </BasicTable>
-    <DeptModal @register="registerModal" @success="handleSuccess" />
+    <DeptDrawer @register="registerDrawer" @success="handleSuccess" />
   </div>
 </template>
 <script lang="ts">
@@ -35,16 +35,16 @@
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { getDeptList, removeDept } from '/@/api/systemmanager/system';
 
-  import { useModal } from '/@/components/Modal';
-  import DeptModal from './DeptModal.vue';
+  import { useDrawer } from '/@/components/Drawer';
+  import DeptDrawer from './DeptModal.vue';
 
   import { columns, searchFormSchema } from './dept.data';
 
   export default defineComponent({
     name: 'DeptManagement',
-    components: { BasicTable, DeptModal, TableAction },
+    components: { BasicTable, DeptDrawer, TableAction },
     setup() {
-      const [registerModal, { openModal }] = useModal();
+      const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
         title: '部门列表',
         api: getDeptList,
@@ -70,13 +70,13 @@
       });
 
       function handleCreate() {
-        openModal(true, {
+        openDrawer(true, {
           isUpdate: false,
         });
       }
 
       function handleEdit(record: Recordable) {
-        openModal(true, {
+        openDrawer(true, {
           record,
           isUpdate: true,
         });
@@ -94,7 +94,7 @@
 
       return {
         registerTable,
-        registerModal,
+        registerDrawer,
         handleCreate,
         handleEdit,
         handleDelete,
