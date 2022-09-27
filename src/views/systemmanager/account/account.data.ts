@@ -1,4 +1,4 @@
-import { getAllRoleList, isAccountExist } from '/@/api/systemmanager/system';
+import { getAllRoleList } from '/@/api/systemmanager/system';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
@@ -56,26 +56,12 @@ export const accountFormSchema: FormSchema[] = [
     field: 'username',
     label: '用户名',
     component: 'Input',
-    dynamicDisabled: ({ values }) => values.id != undefined && values.id != null,
-    //helpMessage: ['本字段演示异步验证', '不能输入带有admin的用户名'],
+    dynamicDisabled: ({ values }) => values.id != undefined && values.id != null && values.id != '',
     rules: [
       {
         required: true,
         message: '请输入用户名',
       },
-      /*
-      {
-        validator(_, value) {
-          return new Promise((resolve, reject) => {
-            isAccountExist(value)
-              .then(() => resolve())
-              .catch((err) => {
-                reject(err.message || '验证失败');
-              });
-          });
-        },
-      },
-      */
     ],
   },
   {
@@ -98,7 +84,6 @@ export const accountFormSchema: FormSchema[] = [
     componentProps: {
       api: getAllRoleList,
       labelField: 'rolename',
-      //valueField: 'roleValue',
       valueField: 'id',
     },
     required: false,

@@ -36,7 +36,7 @@
   import { getDeptList, removeDept } from '/@/api/systemmanager/system';
 
   import { useDrawer } from '/@/components/Drawer';
-  import DeptDrawer from './DeptModal.vue';
+  import DeptDrawer from './DeptDrawer.vue';
 
   import { columns, searchFormSchema } from './dept.data';
 
