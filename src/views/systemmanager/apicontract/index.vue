@@ -33,15 +33,15 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getApiListByPage,removeApi } from '/@/api/systemmanager/system';
+  import { getApiListByPage, removeApi } from '/@/api/systemmanager/system';
   import { useDrawer } from '/@/components/Drawer';
   import ApiDrawer from './apicontractDrawer.vue';
   import { columns, searchFormSchema } from './apicontract.data';
   import { PageWrapper } from '/@/components/Page';
 
-export default defineComponent({
+  export default defineComponent({
     name: '',
-    components: { BasicTable, ApiDrawer ,TableAction,PageWrapper},
+    components: { BasicTable, ApiDrawer, TableAction, PageWrapper },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
@@ -81,7 +81,7 @@ export default defineComponent({
       async function handleDelete(record: Recordable) {
         // console.log(record);
         await removeApi(record.id).then(() => {
-         reload();
+          reload();
         });
       }
 

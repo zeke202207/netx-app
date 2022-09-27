@@ -15,7 +15,9 @@ import {
   RoleItem,
   ApiPageParams,
   ApiPageListResultModel,
-  ApiItem
+  ApiItem,
+  ApiListItem,
+  ApiParam,
 } from './model/systemModel';
 import { defHttp } from '/@/utils/http/axios';
 
@@ -43,12 +45,15 @@ enum Api {
   UpdateRole = '/role/updateRole',
   RemoveRole = '/role/removeRole',
   SetRoleStatus = '/role/setRoleStatus',
-  SetRoleApiCheckStatus='/role/setapicheckstatus',
+  SetRoleApiCheckStatus = '/role/setapiauthstatus',
+  GetApiAuth = '/role/getapiauth',
+  SetApiAuth = '/role/setapiauth',
 
-  ApiPageList ='/api/getApiList',
-  AddApi='/api/addapi',
-  UpdateApi='/api/updateapi',
-  RemoveApi='/api/removeapi'
+  ApiPageList = '/api/getApiPageList',
+  ApiList = '/api/getApiList',
+  AddApi = '/api/addapi',
+  UpdateApi = '/api/updateapi',
+  RemoveApi = '/api/removeapi',
 }
 
 /** dept***/
@@ -89,6 +94,9 @@ export const setRoleStatus = (id: string, status: string) =>
   defHttp.post({ url: Api.SetRoleStatus, params: { id, status } });
 export const setApiCheckStatus = (id: string, status: string) =>
   defHttp.post({ url: Api.SetRoleApiCheckStatus, params: { id, status } });
+export const getApiAuth = (id: string) => defHttp.post({ url: Api.GetApiAuth, params: { id } });
+export const setApiAuth = (id: string, apiids: string[]) =>
+  defHttp.post({ url: Api.SetApiAuth, params: { id, apiids } });
 
 export const getAccountList = (params: AccountParams) =>
   defHttp.get<AccountListGetResultModel>({ url: Api.AccountList, params });
@@ -100,11 +108,12 @@ export const getAllRoleList = (params?: RoleParams) =>
   defHttp.get<RoleListGetResultModel>({ url: Api.GetAllRoleList, params });
 
 /** API */
+export const getApiList = (params?: ApiParam) =>
+  defHttp.post<ApiListItem>({ url: Api.ApiList, params });
 export const getApiListByPage = (params?: ApiPageParams) =>
   defHttp.post<ApiPageListResultModel>({ url: Api.ApiPageList, params });
-export const addApi = (params?: ApiItem) =>
-  defHttp.post<boolean>({ url: Api.AddApi, params });
+export const addApi = (params?: ApiItem) => defHttp.post<boolean>({ url: Api.AddApi, params });
 export const updateApi = (params?: ApiItem) =>
   defHttp.post<boolean>({ url: Api.UpdateApi, params });
 export const removeApi = (id?: string) =>
-  defHttp.delete<boolean>({ url: Api.RemoveApi, params: { id }  });
+  defHttp.delete<boolean>({ url: Api.RemoveApi, params: { id } });

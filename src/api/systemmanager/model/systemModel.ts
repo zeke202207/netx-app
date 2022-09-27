@@ -13,11 +13,9 @@ export type RoleParams = {
 
 export type RolePageParams = BasicPageParams & RoleParams;
 
-export type ApiParam = {
+export type ApiParam = {};
 
-}
-
-export type ApiPageParams = BasicPageParams & ApiParam
+export type ApiPageParams = BasicPageParams & ApiParam;
 
 export type ApiItem = {
   id?: string;
@@ -25,7 +23,7 @@ export type ApiItem = {
   group: string;
   method: string;
   description?: string;
-}
+};
 
 export type DeptParams = {
   deptName?: string;
@@ -116,9 +114,7 @@ export interface RoleItem {
   menu: string[];
 }
 
-export interface ApiListItem{
-  
-}
+export interface ApiListItem {}
 
 /**
  * @description: Request list return value
