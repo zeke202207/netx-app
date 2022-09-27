@@ -1,5 +1,6 @@
 <template>
   <BasicDrawer
+    v-if="true"
     v-bind="$attrs"
     @register="registerDrawer"
     showFooter
@@ -28,7 +29,6 @@
   import { formSchema } from './role.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem } from '/@/components/Tree';
-
   import { getMenuList, updateRole, addRole } from '/@/api/systemmanager/system';
 
   export default defineComponent({

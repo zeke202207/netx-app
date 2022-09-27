@@ -19,6 +19,14 @@ export type ApiParam = {
 
 export type ApiPageParams = BasicPageParams & ApiParam
 
+export type ApiItem = {
+  id?: string;
+  path: string;
+  group: string;
+  method: string;
+  description?: string;
+}
+
 export type DeptParams = {
   deptName?: string;
   status?: string;

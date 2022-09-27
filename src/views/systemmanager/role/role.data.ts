@@ -2,7 +2,7 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { setRoleStatus } from '/@/api/systemmanager/system';
+import { setRoleStatus, setApiCheckStatus } from '/@/api/systemmanager/system';
 import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
@@ -11,18 +11,6 @@ export const columns: BasicColumn[] = [
     dataIndex: 'rolename',
     width: 200,
   },
-  /*
-  {
-    title: '角色值',
-    dataIndex: 'roleValue',
-    width: 180,
-  },
-  {
-    title: '排序',
-    dataIndex: 'orderNo',
-    width: 50,
-  },
-  */
   {
     title: '状态',
     dataIndex: 'status',
@@ -50,6 +38,38 @@ export const columns: BasicColumn[] = [
             })
             .finally(() => {
               record.pendingStatus = false;
+            });
+        },
+      });
+    },
+  },
+  {
+    title: '后台接口鉴权',
+    dataIndex: 'apicheck',
+    width: 120,
+    customRender: ({ record }) => {
+      if (!Reflect.has(record, 'pendingapicheck')) {
+        record.pendingApiCheck = false;
+      }
+      return h(Switch, {
+        checked: record.apicheck === '1',
+        checkedChildren: '已启用',
+        unCheckedChildren: '已禁用',
+        loading: record.pendingApiCheck,
+        onChange(checked: boolean) {
+          record.pendingApiCheck = true;
+          const newStatus = checked ? '1' : '0';
+          const { createMessage } = useMessage();
+          setApiCheckStatus(record.id, newStatus)
+            .then(() => {
+              record.apicheck = newStatus;
+              createMessage.success(`已成功修改角色后台接口鉴权状态`);
+            })
+            .catch(() => {
+              createMessage.error('修改角色后台接口鉴权状态失败');
+            })
+            .finally(() => {
+              record.pendingApiCheck = false;
             });
         },
       });
@@ -101,17 +121,21 @@ export const formSchema: FormSchema[] = [
     required: true,
     component: 'Input',
   },
-  /*
-  {
-    field: 'roleValue',
-    label: '角色值',
-    required: true,
-    component: 'Input',
-  },
-  */
   {
     field: 'status',
     label: '状态',
+    component: 'RadioButtonGroup',
+    defaultValue: '0',
+    componentProps: {
+      options: [
+        { label: '启用', value: '1' },
+        { label: '停用', value: '0' },
+      ],
+    },
+  },
+  {
+    field: 'apicheck',
+    label: '后台接口鉴权',
     component: 'RadioButtonGroup',
     defaultValue: '0',
     componentProps: {

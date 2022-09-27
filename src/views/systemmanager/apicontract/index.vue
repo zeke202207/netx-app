@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
     <BasicTable @register="registerTable">
       <template #toolbar>
-        <a-button type="primary" @click="handleCreate"> 新增角色 </a-button>
+        <a-button type="primary" @click="handleCreate"> 新增接口 </a-button>
       </template>
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
@@ -27,25 +27,26 @@
       </template>
     </BasicTable>
     <ApiDrawer @register="registerDrawer" @success="handleSuccess" />
-  </div>
+  </PageWrapper>
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getListByPage } from '/@/api/systemmanager/system';
+  import { getApiListByPage,removeApi } from '/@/api/systemmanager/system';
   import { useDrawer } from '/@/components/Drawer';
   import ApiDrawer from './apicontractDrawer.vue';
   import { columns, searchFormSchema } from './apicontract.data';
+  import { PageWrapper } from '/@/components/Page';
 
 export default defineComponent({
     name: '',
-    components: { BasicTable, ApiDrawer ,TableAction},
+    components: { BasicTable, ApiDrawer ,TableAction,PageWrapper},
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable, { reload }] = useTable({
-        title: 'api列表',
-        api: getListByPage,
+        title: '接口列表',
+        api: getApiListByPage,
         columns,
         formConfig: {
           labelWidth: 120,
@@ -78,10 +79,10 @@ export default defineComponent({
       }
 
       async function handleDelete(record: Recordable) {
-        console.log(record);
-        // await removeRole(record.id).then(() => {
-        //  reload();
-        // });
+        // console.log(record);
+        await removeApi(record.id).then(() => {
+         reload();
+        });
       }
 
       function handleSuccess() {

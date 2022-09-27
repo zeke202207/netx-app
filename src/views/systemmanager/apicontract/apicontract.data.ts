@@ -7,19 +7,36 @@ import { Switch } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
-    title: 'test',
-    dataIndex: 'test',
+    title: '接口地址',
+    dataIndex: 'path',
     width: 200,
-  }
+  },
+  {
+    title: '接口分组',
+    dataIndex: 'group',
+    width: 50,
+  },
+  {
+    title: '接口方法',
+    dataIndex: 'method',
+    width: 50,
+  },
+  {
+    title: '接口描述',
+    dataIndex: 'description',
+    width: 200,
+  },
 ]
 
 export const searchFormSchema: FormSchema[] = [
+  /*
   {
-    field: 'test',
-    label: '测试',
+    field: 'path',
+    label: '接口地址',
     component: 'Input',
     colProps: { span: 8 },
   }
+  */
 ]
 
 export const formSchema: FormSchema[] =[
@@ -31,9 +48,52 @@ export const formSchema: FormSchema[] =[
     show: false,
   },
   {
-    field: 'test',
-    label: 'test',
+    field: 'path',
+    label: '接口地址',
     required: true,
     component: 'Input',
+  },
+  {
+    field: 'group',
+    label: '接口分组',
+    required: true,
+    component: 'Input',
+  },
+  {
+    field: 'method',
+    label: '接口方法',
+    required: true,
+    component: 'Select',
+    defaultValue: 'POST',
+    componentProps: {
+      options: [
+        {
+          label: 'POST',
+          value: 'POST',
+          key: 'POST',
+        },
+        {
+          label: 'GET',
+          value: 'GET',
+          key: 'GET',
+        },
+        {
+          label: 'DELETE',
+          value: 'DELETE',
+          key: 'DELETE',
+        },
+        {
+          label: 'PUT',
+          value: 'PUT',
+          key: 'PUT',
+        },
+      ],
+    },
+  },
+  {
+    field: 'description',
+    label: '接口描述',
+    required: false,
+    component: 'InputTextArea',
   }
 ]
