@@ -42,7 +42,7 @@
       <FullScreen v-if="getShowFullScreen" :class="`${prefixCls}-action__item fullscreen-item`" />
 
       <AppLocalePicker
-        v-if="getShowLocalePicker"
+        v-if="getShowLocalePicker && false"
         :reload="true"
         :showText="false"
         :class="`${prefixCls}-action__item`"

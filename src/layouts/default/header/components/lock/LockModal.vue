@@ -10,7 +10,7 @@
       <div :class="`${prefixCls}__header`">
         <img :src="avatar" :class="`${prefixCls}__header-img`" />
         <p :class="`${prefixCls}__header-name`">
-          {{ getRealName }}
+          {{ getnickname }}
         </p>
       </div>
 
@@ -44,7 +44,7 @@
       const userStore = useUserStore();
       const lockStore = useLockStore();
 
-      const getRealName = computed(() => userStore.getUserInfo?.realName);
+      const getnickname = computed(() => userStore.getUserInfo?.nickname);
       const [register, { closeModal }] = useModalInner();
 
       const [registerForm, { validateFields, resetFields }] = useForm({
@@ -82,7 +82,7 @@
       return {
         t,
         prefixCls,
-        getRealName,
+        getnickname,
         register,
         registerForm,
         handleLock,
