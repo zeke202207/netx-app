@@ -18,6 +18,8 @@ import {
   ApiItem,
   ApiListItem,
   ApiParam,
+  LoggingPageParam,
+  LoggingListItem,
 } from './model/systemModel';
 import { defHttp } from '/@/utils/http/axios';
 
@@ -54,6 +56,8 @@ enum Api {
   AddApi = '/api/addapi',
   UpdateApi = '/api/updateapi',
   RemoveApi = '/api/removeapi',
+
+  loggingPageList = '/logging/getloglist',
 }
 
 /** dept***/
@@ -117,3 +121,7 @@ export const updateApi = (params?: ApiItem) =>
   defHttp.post<boolean>({ url: Api.UpdateApi, params });
 export const removeApi = (id?: string) =>
   defHttp.delete<boolean>({ url: Api.RemoveApi, params: { id } });
+
+/** Logging */
+export const getLoggingList = (params?: LoggingPageParam) =>
+  defHttp.post<LoggingListItem>({ url: Api.loggingPageList, params });

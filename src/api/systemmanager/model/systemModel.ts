@@ -1,4 +1,5 @@
 import exp from 'constants';
+import internal from 'stream';
 import { BasicPageParams, BasicFetchResult } from '/@/api/model/baseModel';
 
 export type AccountParams = BasicPageParams & {
@@ -114,7 +115,16 @@ export interface RoleItem {
   menu: string[];
 }
 
-export interface ApiListItem {}
+export interface ApiListItem {
+  level: internal;
+}
+
+
+export type LoggingParam = {};
+
+export type LoggingPageParam = BasicPageParams & LoggingParam;
+
+export interface LoggingListItem {}
 
 /**
  * @description: Request list return value
@@ -130,3 +140,5 @@ export type RolePageListGetResultModel = BasicFetchResult<RoleListItem>;
 export type RoleListGetResultModel = RoleListItem[];
 
 export type ApiPageListResultModel = BasicFetchResult<ApiListItem>;
+
+export type LoggingPageListResultModel = BasicFetchResult<LoggingListItem>;
