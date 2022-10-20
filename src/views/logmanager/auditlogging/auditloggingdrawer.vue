@@ -25,9 +25,7 @@
       const modeValue = ref<MODE>(MODE.JSON);
       const jsonData = ref('[]');
       const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
-        debugger
-        let message = data.record.message;
-        jsonData.value =JSON.parse(message);
+        jsonData.value =JSON.parse(data.record.detail);
         setDrawerProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
       });

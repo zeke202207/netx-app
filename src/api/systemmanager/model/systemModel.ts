@@ -119,13 +119,6 @@ export interface ApiListItem {
   level: internal;
 }
 
-
-export type LoggingParam = {};
-
-export type LoggingPageParam = BasicPageParams & LoggingParam;
-
-export interface LoggingListItem {}
-
 /**
  * @description: Request list return value
  */
@@ -141,4 +134,3 @@ export type RoleListGetResultModel = RoleListItem[];
 
 export type ApiPageListResultModel = BasicFetchResult<ApiListItem>;
 
-export type LoggingPageListResultModel = BasicFetchResult<LoggingListItem>;

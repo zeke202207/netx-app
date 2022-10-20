@@ -121,7 +121,3 @@ export const updateApi = (params?: ApiItem) =>
   defHttp.post<boolean>({ url: Api.UpdateApi, params });
 export const removeApi = (id?: string) =>
   defHttp.delete<boolean>({ url: Api.RemoveApi, params: { id } });
-
-/** Logging */
-export const getLoggingList = (params?: LoggingPageParam) =>
-  defHttp.post<LoggingListItem>({ url: Api.loggingPageList, params });

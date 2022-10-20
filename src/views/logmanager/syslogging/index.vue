@@ -22,9 +22,9 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { useDrawer } from '/@/components/Drawer';
-  import LoggingDrawer from './loggingdrawer.vue';
-  import { columns, searchFormSchema } from './logging.data';
-  import { getLoggingList } from '/@/api/systemmanager/system';
+  import LoggingDrawer from './sysloggingdrawer.vue';
+  import { columns, searchFormSchema } from './syslogging.data';
+  import { getLoggingList } from '/@/api/logmanager/logging';
   import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
