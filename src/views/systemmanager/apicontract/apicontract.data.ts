@@ -10,6 +10,7 @@ export const columns: BasicColumn[] = [
     title: '接口地址',
     dataIndex: 'path',
     width: 200,
+    align: 'left',
   },
   {
     title: '接口分组',
@@ -24,6 +25,7 @@ export const columns: BasicColumn[] = [
   {
     title: '接口描述',
     dataIndex: 'description',
+    align: 'left',
     width: 200,
   },
 ]

@@ -27,6 +27,7 @@ export const columns: BasicColumn[] = [
   {
     title: '组件',
     dataIndex: 'component',
+    align: 'left',
   },
   {
     title: '排序',

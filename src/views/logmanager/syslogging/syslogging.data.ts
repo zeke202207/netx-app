@@ -42,6 +42,11 @@ export const columns: BasicColumn[] = [
     },
   },
   {
+    title: '耗时(ms)',
+    dataIndex: 'elapsed',
+    width: 50,
+  },
+  {
     title: '异常信息',
     dataIndex: 'exception',
     width: 200,

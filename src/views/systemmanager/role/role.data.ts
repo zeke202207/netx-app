@@ -10,6 +10,7 @@ export const columns: BasicColumn[] = [
     title: '角色名称',
     dataIndex: 'rolename',
     width: 200,
+    align: 'left',
   },
   {
     title: '状态',
@@ -83,6 +84,7 @@ export const columns: BasicColumn[] = [
   {
     title: '备注',
     dataIndex: 'remark',
+    align: 'left',
   },
 ];
 

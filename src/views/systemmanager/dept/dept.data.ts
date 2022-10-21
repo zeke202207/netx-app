@@ -35,6 +35,7 @@ export const columns: BasicColumn[] = [
   {
     title: '备注',
     dataIndex: 'remark',
+    align: 'left',
   },
 ];
 

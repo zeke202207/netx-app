@@ -13,6 +13,7 @@
         <BasicTree
           v-model:value="model[field]"
           :treeData="treeData"
+          :checkedKeys="checkedKeys"
           :fieldNames="{ title: 'name', key: 'id' }"
           checkable
           :toolbar="false"
@@ -28,7 +29,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './role.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
-  import { BasicTree, TreeItem } from '/@/components/Tree';
+  import { BasicTree, TreeItem, CheckKeys } from '/@/components/Tree';
   import { getMenuList, updateRole, addRole } from '/@/api/systemmanager/system';
 
   export default defineComponent({
@@ -38,6 +39,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const treeData = ref<TreeItem[]>([]);
+      const checkedKeys =ref<CheckKeys[]>([])
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 90,
@@ -54,11 +56,11 @@
           treeData.value = (await getMenuList()) as any as TreeItem[];
         }
         isUpdate.value = !!data?.isUpdate;
-
         if (unref(isUpdate)) {
           setFieldsValue({
             ...data.record,
           });
+          checkedKeys.value = data.record.checkmenu;
         }
       });
 
@@ -68,7 +70,6 @@
         try {
           const values = await validate();
           setDrawerProps({ confirmLoading: true });
-          // TODO custom api
           console.log(values);
           if (unref(isUpdate)) {
             await updateRole(values);
