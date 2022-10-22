@@ -18,7 +18,7 @@
           checkable
           :toolbar="false"
           :checkStrictly="true"
-          title="菜单分配"
+          title="菜单分配"          
         />
       </template>
     </BasicForm>
@@ -31,6 +31,7 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem, CheckKeys } from '/@/components/Tree';
   import { getMenuList, updateRole, addRole } from '/@/api/systemmanager/system';
+  import { isArray } from '/@/utils/is';
 
   export default defineComponent({
     name: 'RoleDrawer',
@@ -72,6 +73,9 @@
           setDrawerProps({ confirmLoading: true });
           console.log(values);
           if (unref(isUpdate)) {
+            if(isArray(values.menu)){
+              values.menu= { checked: values.menu, halfChecked: [] }
+            }
             await updateRole(values);
           } else {
             await addRole(values);
@@ -89,6 +93,7 @@
         getTitle,
         handleSubmit,
         treeData,
+        checkedKeys
       };
     },
   });
