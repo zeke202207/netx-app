@@ -79,6 +79,13 @@
       <GoogleCircleFilled />
       <TwitterCircleFilled />
     </div>
+
+    <Divider class="enter-x"></Divider>
+
+    <div>
+      <a href="https://beian.miit.gov.cn" target="_blank" >辽ICP备2022010032号-1</a>
+    </div>
+
   </Form>
 </template>
 <script lang="ts" setup>
@@ -119,7 +126,7 @@
   const rememberMe = ref(false);
 
   const formData = reactive({
-    account: 'vben',
+    account: 'zeke',
     password: '123456',
   });
 

@@ -1,13 +1,9 @@
 <template>
   <Footer :class="prefixCls" v-if="getShowLayoutFooter" ref="footerRef">
-    <div :class="`${prefixCls}__links`">
-      <a @click="openWindow(SITE_URL)">{{ t('layout.footer.onlinePreview') }}</a>
-
-      <GithubFilled @click="openWindow(GITHUB_URL)" :class="`${prefixCls}__github`" />
-
-      <a @click="openWindow(DOC_URL)">{{ t('layout.footer.onlineDocument') }}</a>
+    <div>
+      <a href="https://beian.miit.gov.cn" target="_blank" >辽ICP备2022010032号-1</a>
     </div>
-    <div>Copyright &copy;2020 Vben Admin</div>
+    <div>Copyright &copy;2022 zeke</div>
   </Footer>
 </template>
 
@@ -64,7 +60,7 @@
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-layout-footer';
 
-  @normal-color: rgba(0, 0, 0, 0.45);
+  @normal-color: rgba(0, 0, 0, 0.45) ;
 
   @hover-color: rgba(0, 0, 0, 0.85);
 
