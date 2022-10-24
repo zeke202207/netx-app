@@ -1,6 +1,6 @@
 <template>
-  <PageWrapper dense contentFullHeight fixedHeight contentClass="flex">
-    <BasicTable @register="registerTable" @fetch-success="onFetchSuccess">     
+  <PageWrapper dense contentFullHeight contentClass="flex">
+    <BasicTable @register="registerTable" @fetch-success="onFetchSuccess">
       <template #bodyCell="{ column, record }">
         <template v-if="column.key === 'action'">
           <TableAction

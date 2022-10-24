@@ -1,7 +1,7 @@
 <template>
   <Footer :class="prefixCls" v-if="getShowLayoutFooter" ref="footerRef">
-    <div>
-      <a href="https://beian.miit.gov.cn" target="_blank" >辽ICP备2022010032号-1</a>
+    <div :class="`${prefixCls}__links`">
+      <a href="https://beian.miit.gov.cn" target="_blank">辽ICP备2022010032号-1</a>
     </div>
     <div>Copyright &copy;2022 zeke</div>
   </Footer>
@@ -10,8 +10,6 @@
 <script lang="ts">
   import { computed, defineComponent, unref, ref } from 'vue';
   import { Layout } from 'ant-design-vue';
-
-  import { GithubFilled } from '@ant-design/icons-vue';
 
   import { DOC_URL, GITHUB_URL, SITE_URL } from '/@/settings/siteSetting';
   import { openWindow } from '/@/utils';
@@ -24,7 +22,7 @@
 
   export default defineComponent({
     name: 'LayoutFooter',
-    components: { Footer: Layout.Footer, GithubFilled },
+    components: { Footer: Layout.Footer },
     setup() {
       const { t } = useI18n();
       const { getShowFooter } = useRootSetting();
@@ -60,7 +58,7 @@
 <style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-layout-footer';
 
-  @normal-color: rgba(0, 0, 0, 0.45) ;
+  @normal-color: rgba(0, 0, 0, 0.45);
 
   @hover-color: rgba(0, 0, 0, 0.85);
 
