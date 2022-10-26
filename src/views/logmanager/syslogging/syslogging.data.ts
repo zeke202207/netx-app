@@ -14,27 +14,27 @@ export const columns: BasicColumn[] = [
   {
     title: '日志等级',
     dataIndex: 'level',
-    width: 50,
+    width: 80,
     customRender: ({ record }) => {
       const level = record.level;
       let color = 'green';
-      let text = 'None' ;
-      if(level ===0){
+      let text = 'None';
+      if (level === 0) {
         color = 'blue';
         text = 'Trace';
-      }else if(level ===1){
+      } else if (level === 1) {
         color = 'green';
         text = 'Debug';
-      }else if(level ===2){
+      } else if (level === 2) {
         color = 'cyan';
         text = 'Information';
-      }else if(level ===3){
+      } else if (level === 3) {
         color = 'yellow';
         text = 'Warning';
-      }else if(level ===4){
+      } else if (level === 4) {
         color = 'red';
         text = 'Error';
-      }else if(level ===5){
+      } else if (level === 5) {
         color = 'red';
         text = 'Critical';
       }
@@ -46,11 +46,13 @@ export const columns: BasicColumn[] = [
     dataIndex: 'elapsed',
     width: 50,
   },
+  /*
   {
     title: '异常信息',
     dataIndex: 'exception',
     width: 200,
   },
+  */
   {
     title: '创建时间',
     dataIndex: 'createtime',
@@ -58,7 +60,7 @@ export const columns: BasicColumn[] = [
   },
 ];
 
-export const searchFormSchema: FormSchema[] = [  
+export const searchFormSchema: FormSchema[] = [
   {
     field: 'level',
     label: '日志等级',
@@ -73,9 +75,8 @@ export const searchFormSchema: FormSchema[] = [
         { label: 'Error', value: '5' },
         { label: 'Critical', value: '6' },
       ],
-      defaultValue: '0'
+      defaultValue: '0',
     },
     colProps: { span: 8 },
   },
-  
 ];

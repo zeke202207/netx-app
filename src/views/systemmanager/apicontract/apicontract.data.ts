@@ -28,20 +28,18 @@ export const columns: BasicColumn[] = [
     align: 'left',
     width: 200,
   },
-]
+];
 
 export const searchFormSchema: FormSchema[] = [
-  /*
   {
-    field: 'path',
-    label: '接口地址',
+    field: 'group',
+    label: '接口分组',
     component: 'Input',
     colProps: { span: 8 },
-  }
-  */
-]
+  },
+];
 
-export const formSchema: FormSchema[] =[
+export const formSchema: FormSchema[] = [
   {
     field: 'id',
     label: 'id',
@@ -97,5 +95,5 @@ export const formSchema: FormSchema[] =[
     label: '接口描述',
     required: false,
     component: 'InputTextArea',
-  }
-]
+  },
+];

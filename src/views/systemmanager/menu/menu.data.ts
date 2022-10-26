@@ -59,9 +59,8 @@ const isButton = (type: string) => type === '2';
 const isExt = (type: string) => type === '1';
 
 export const searchFormSchema: FormSchema[] = [
-  /*
   {
-    field: 'menuName',
+    field: 'menuname',
     label: '菜单名称',
     component: 'Input',
     colProps: { span: 8 },
@@ -78,7 +77,6 @@ export const searchFormSchema: FormSchema[] = [
     },
     colProps: { span: 8 },
   },
-  */
 ];
 
 export const formSchema: FormSchema[] = [

@@ -22,8 +22,8 @@ export const columns: BasicColumn[] = [
     customRender: ({ record }) => {
       const status = record.status;
       const enable = ~~status === 0;
-      const color = enable ? 'green' : 'red';
-      const text = enable ? '启用' : '停用';
+      const color = enable ? 'red' : 'green';
+      const text = enable ? '停用' : '启用';
       return h(Tag, { color: color }, () => text);
     },
   },
@@ -40,9 +40,16 @@ export const columns: BasicColumn[] = [
 ];
 
 export const searchFormSchema: FormSchema[] = [
-  /*
   {
-    field: 'deptName',
+    field: 'containdisabled',
+    label: '是否包含禁用部门',
+    component: 'Input',
+    colProps: { span: 8 },
+    show: false,
+    defaultValue: true,
+  },
+  {
+    field: 'deptname',
     label: '部门名称',
     component: 'Input',
     colProps: { span: 8 },
@@ -53,13 +60,12 @@ export const searchFormSchema: FormSchema[] = [
     component: 'Select',
     componentProps: {
       options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
+        { label: '启用', value: '1' },
+        { label: '停用', value: '0' },
       ],
     },
     colProps: { span: 8 },
   },
-  */
 ];
 
 export const formSchema: FormSchema[] = [
@@ -103,8 +109,8 @@ export const formSchema: FormSchema[] = [
     defaultValue: '0',
     componentProps: {
       options: [
-        { label: '启用', value: '0' },
-        { label: '停用', value: '1' },
+        { label: '启用', value: '1' },
+        { label: '停用', value: '0' },
       ],
     },
     required: true,
