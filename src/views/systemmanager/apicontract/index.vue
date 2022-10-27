@@ -40,7 +40,7 @@
   import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    name: '',
+    name: 'Apicontract',
     components: { BasicTable, ApiDrawer, TableAction, PageWrapper },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
