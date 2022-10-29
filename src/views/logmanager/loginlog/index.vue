@@ -22,19 +22,19 @@
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import { useDrawer } from '/@/components/Drawer';
-  import LoggingDrawer from './sysloggingdrawer.vue';
-  import { columns, searchFormSchema } from './syslogging.data';
-  import { getLoggingList } from '/@/api/logmanager/logging';
+  import LoggingDrawer from './auditloggingdrawer.vue';
+  import { columns, searchFormSchema } from './loginlogging.data';
+  import { getAuditLoggingList } from '/@/api/logmanager/logging';
   import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    name: 'Syslog',
+    name: 'Loginlog',
     components: { BasicTable, TableAction, PageWrapper, LoggingDrawer },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();
       const [registerTable] = useTable({
         title: '菜单列表',
-        api: getLoggingList,
+        api: getAuditLoggingList,
         rowKey: 'id',
         columns,
         formConfig: {
