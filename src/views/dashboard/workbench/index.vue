@@ -3,7 +3,7 @@
     <template #headerContent> <WorkbenchHeader /> </template>
     <div class="lg:flex">
       <div class="lg:w-7/10 w-full !mr-4 enter-y">
-        <DynamicInfo :loading="loading" class="!my-4 enter-y" />
+        <ChangeLogInfo :loading="loading" class="!my-4 enter-y" />
       </div>
       <div class="lg:w-3/10 w-full enter-y">
         <Card class="!my-4 enter-y" :loading="loading">
@@ -18,7 +18,7 @@
   import { Card } from 'ant-design-vue';
   import { PageWrapper } from '/@/components/Page';
   import WorkbenchHeader from './components/WorkbenchHeader.vue';
-  import DynamicInfo from './components/DynamicInfo.vue';
+  import ChangeLogInfo from './components/ChangeLogInfo.vue';
 
   const loading = ref(true);
 

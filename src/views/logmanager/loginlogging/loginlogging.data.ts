@@ -9,31 +9,19 @@ export const columns: BasicColumn[] = [
     align: 'left',
   },
   {
-    title: '控制器',
-    dataIndex: 'controller',
+    title: '登录ip',
+    dataIndex: 'loginip',
     width: 50,
     align: 'left',
   },
   {
-    title: '方法',
-    dataIndex: 'action1',
+    title: '登录地址',
+    dataIndex: 'loginaddress',
     width: 50,
     align: 'left',
   },
   {
-    title: '远程地址',
-    dataIndex: 'remoteipv4',
-    width: 200,
-  },
-  /*
-  {
-    title: '详情',
-    dataIndex: 'detail',
-    width: 200,
-  },
-  */
-  {
-    title: '创建时间',
+    title: '登录时间',
     dataIndex: 'createtime',
     width: 100,
   },

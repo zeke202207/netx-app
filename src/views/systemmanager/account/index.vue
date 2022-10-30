@@ -47,7 +47,7 @@
   import { useGo } from '/@/hooks/web/usePage';
 
   export default defineComponent({
-    name: 'AccountManagement',
+    name: 'Account',
     components: { BasicTable, PageWrapper, DeptTree, AccountDrawer, TableAction },
     setup() {
       const go = useGo();

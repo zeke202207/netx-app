@@ -41,7 +41,7 @@
   import { columns, searchFormSchema } from './dept.data';
 
   export default defineComponent({
-    name: 'DeptManagement',
+    name: 'Dept',
     components: { BasicTable, DeptDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();

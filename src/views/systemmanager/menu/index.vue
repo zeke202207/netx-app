@@ -11,6 +11,7 @@
               {
                 icon: 'clarity:note-edit-line',
                 onClick: handleEdit.bind(null, record),
+                ifShow: () => record.path != '/dashboard',
               },
               {
                 icon: 'ant-design:delete-outlined',
@@ -20,6 +21,7 @@
                   placement: 'left',
                   confirm: handleDelete.bind(null, record),
                 },
+                ifShow: () => record.path != '/dashboard',
               },
             ]"
           />
@@ -41,7 +43,7 @@
   import { columns, searchFormSchema } from './menu.data';
 
   export default defineComponent({
-    name: 'MenuManagement',
+    name: 'Menu',
     components: { BasicTable, MenuDrawer, TableAction },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();

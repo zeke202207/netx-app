@@ -28,7 +28,7 @@
   import { PageWrapper } from '/@/components/Page';
 
   export default defineComponent({
-    name: 'LoggingManagement',
+    name: 'Auditlog',
     components: { BasicTable, TableAction, PageWrapper, LoggingDrawer },
     setup() {
       const [registerDrawer, { openDrawer }] = useDrawer();

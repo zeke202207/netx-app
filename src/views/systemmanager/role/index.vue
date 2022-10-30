@@ -45,7 +45,7 @@
   import { columns, searchFormSchema } from './role.data';
 
   export default defineComponent({
-    name: 'RoleManagement',
+    name: 'Role',
     components: { BasicTable, RoleDrawer, TableAction, ApiAuthDrawer },
     setup() {
       const [registerDrawer, { openDrawer: openDrawer }] = useDrawer();
