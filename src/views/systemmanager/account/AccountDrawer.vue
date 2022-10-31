@@ -14,7 +14,8 @@
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { accountFormSchema } from './account.data';
-  import { getDeptList, updateAccount, addAccount } from '/@/api/systemmanager/system';
+  import { updateAccount, addAccount } from '/@/api/systemmanager/account';
+  import { getDeptList } from '/@/api/systemmanager/dept';
 
   export default defineComponent({
     name: 'AccountDrawer',

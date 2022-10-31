@@ -30,7 +30,8 @@
   import { formSchema } from './role.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem, CheckKeys } from '/@/components/Tree';
-  import { getMenuList, updateRole, addRole } from '/@/api/systemmanager/system';
+  import { updateRole, addRole } from '/@/api/systemmanager/role';
+  import { getMenuList } from '/@/api/systemmanager/menu';
   import { isArray } from '/@/utils/is';
 
   export default defineComponent({

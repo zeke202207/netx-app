@@ -16,7 +16,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './apicontract.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
-  import { addApi, updateApi } from '/@/api/systemmanager/system';
+  import { addApi, updateApi } from '/@/api/systemmanager/appinterface';
 
   export default defineComponent({
     name: 'ApiDrawer',

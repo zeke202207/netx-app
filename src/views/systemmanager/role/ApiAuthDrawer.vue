@@ -16,8 +16,8 @@
   import { defineComponent, ref } from 'vue';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTable, useTable } from '/@/components/Table';
-  import { getApiList, getApiAuth, setApiAuth } from '/@/api/systemmanager/system';
-  // import { getMenuList, updateRole, addRole } from '/@/api/systemmanager/system';
+  import {  getApiAuth, setApiAuth } from '/@/api/systemmanager/role';
+  import { getApiList } from '/@/api/systemmanager/appinterface';
   import { BasicColumn } from '/@/components/Table';
   export default defineComponent({
     name: 'ApiAuthDrawer',

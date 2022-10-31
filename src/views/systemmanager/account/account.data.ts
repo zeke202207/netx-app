@@ -1,4 +1,4 @@
-import { getAllRoleList } from '/@/api/systemmanager/system';
+import { getAllRoleList } from '/@/api/systemmanager/role';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
