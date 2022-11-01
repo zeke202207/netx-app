@@ -25,6 +25,11 @@
           icon="ion:lock-closed-outline"
         />
         <MenuItem
+        key="changepwd"
+        text="修改密码"
+        icon="arcticons:passwordgenerator"
+        />
+        <MenuItem
           key="logout"
           :text="t('layout.header.dropdownItemLoginOut')"
           icon="ion:power-outline"
@@ -33,6 +38,7 @@
     </template>
   </Dropdown>
   <LockAction @register="register" />
+  <ChangePwdModal @register="registerChangePwd" />
 </template>
 <script lang="ts">
   // components
@@ -55,7 +61,7 @@
 
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
-  type MenuEvent = 'logout' | 'doc' | 'lock';
+  type MenuEvent = 'logout' | 'doc' | 'lock' | 'changepwd';
 
   export default defineComponent({
     name: 'UserDropdown',
@@ -65,6 +71,7 @@
       MenuItem: createAsyncComponent(() => import('./DropMenuItem.vue')),
       MenuDivider: Menu.Divider,
       LockAction: createAsyncComponent(() => import('../lock/LockModal.vue')),
+      ChangePwdModal: createAsyncComponent(() => import('/@/view/systemmanager/account/changePwdModal.vue')),
     },
     props: {
       theme: propTypes.oneOf(['dark', 'light']),
@@ -74,13 +81,14 @@
       const { t } = useI18n();
       const { getShowDoc, getUseLockPage } = useHeaderSetting();
       const userStore = useUserStore();
+      const [register, { openModal }] = useModal();
+      const [registerChangePwd, { openModal: openModalChangePwd }] = useModal();
 
       const getUserInfo = computed(() => {
         const { nickname = '', avatar, desc } = userStore.getUserInfo || {};
         return { nickname, avatar: avatar || headerImg, desc };
       });
 
-      const [register, { openModal }] = useModal();
 
       function handleLock() {
         openModal(true);
@@ -96,6 +104,11 @@
         openWindow(DOC_URL);
       }
 
+      // change login user's password
+      function handleChangePwd(){
+        openModalChangePwd(true);
+      }
+
       function handleMenuClick(e: MenuInfo) {
         switch (e.key as MenuEvent) {
           case 'logout':
@@ -106,6 +119,9 @@
             break;
           case 'lock':
             handleLock();
+            break;
+          case 'changepwd':
+            handleChangePwd();
             break;
         }
       }
@@ -118,6 +134,7 @@
         getShowDoc,
         register,
         getUseLockPage,
+        registerChangePwd,
       };
     },
   });
