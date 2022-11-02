@@ -26,7 +26,12 @@ export interface AccountListItem {
   status: number;
 }
 
+export interface AccountPasswordItem {
+  oldpwd: string;
+  newpwd: string;
+}
+
 /**
  * @description: Request list return value
  */
- export type AccountListGetResultModel = BasicFetchResult<AccountListItem>;
+export type AccountListGetResultModel = BasicFetchResult<AccountListItem>;

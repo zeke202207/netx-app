@@ -17,8 +17,6 @@ enum Api {
   SetRoleApiCheckStatus = '/role/setapiauthstatus',
   GetApiAuth = '/role/getapiauth',
   SetApiAuth = '/role/setapiauth',
-
- 
 }
 
 export const addRole = (params?: RoleItem) => defHttp.post<boolean>({ url: Api.AddRole, params });

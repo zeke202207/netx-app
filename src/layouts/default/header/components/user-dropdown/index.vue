@@ -24,11 +24,7 @@
           :text="t('layout.header.tooltipLock')"
           icon="ion:lock-closed-outline"
         />
-        <MenuItem
-        key="changepwd"
-        text="修改密码"
-        icon="arcticons:passwordgenerator"
-        />
+        <MenuItem key="changepwd" text="修改密码" icon="arcticons:passwordgenerator" />
         <MenuItem
           key="logout"
           :text="t('layout.header.dropdownItemLoginOut')"
@@ -38,7 +34,7 @@
     </template>
   </Dropdown>
   <LockAction @register="register" />
-  <ChangePwdModal @register="registerChangePwd" />
+  <ChangePwdAction @register="registerChangePwd" @success="handleSuccess" />
 </template>
 <script lang="ts">
   // components
@@ -70,8 +66,10 @@
       Menu,
       MenuItem: createAsyncComponent(() => import('./DropMenuItem.vue')),
       MenuDivider: Menu.Divider,
+      ChangePwdAction: createAsyncComponent(
+        () => import('/@/views/systemmanager/account/ChangePwdModal.vue'),
+      ),
       LockAction: createAsyncComponent(() => import('../lock/LockModal.vue')),
-      ChangePwdModal: createAsyncComponent(() => import('/@/view/systemmanager/account/changePwdModal.vue')),
     },
     props: {
       theme: propTypes.oneOf(['dark', 'light']),
@@ -81,14 +79,13 @@
       const { t } = useI18n();
       const { getShowDoc, getUseLockPage } = useHeaderSetting();
       const userStore = useUserStore();
-      const [register, { openModal }] = useModal();
+      const [register, { openModal: openModal }] = useModal();
       const [registerChangePwd, { openModal: openModalChangePwd }] = useModal();
 
       const getUserInfo = computed(() => {
         const { nickname = '', avatar, desc } = userStore.getUserInfo || {};
         return { nickname, avatar: avatar || headerImg, desc };
       });
-
 
       function handleLock() {
         openModal(true);
@@ -105,7 +102,7 @@
       }
 
       // change login user's password
-      function handleChangePwd(){
+      function handleChangePwd() {
         openModalChangePwd(true);
       }
 
@@ -126,6 +123,11 @@
         }
       }
 
+      // after modify password success ,return login page
+      function handleSuccess() {
+        userStore.logout(true);
+      }
+
       return {
         prefixCls,
         t,
@@ -135,6 +137,7 @@
         register,
         getUseLockPage,
         registerChangePwd,
+        handleSuccess,
       };
     },
   });

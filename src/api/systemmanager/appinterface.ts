@@ -7,7 +7,7 @@ import {
 } from './model/appinterfaceModel';
 import { defHttp } from '/@/utils/http/axios';
 
-enum Api { 
+enum Api {
   ApiPageList = '/api/getapipagelist',
   ApiList = '/api/getapilist',
   AddApi = '/api/addapi',
@@ -25,6 +25,6 @@ export const addApi = (params?: ApiItem) => defHttp.post<boolean>({ url: Api.Add
 
 export const updateApi = (params?: ApiItem) =>
   defHttp.post<boolean>({ url: Api.UpdateApi, params });
-  
+
 export const removeApi = (id?: string) =>
   defHttp.delete<boolean>({ url: Api.RemoveApi, params: { id } });

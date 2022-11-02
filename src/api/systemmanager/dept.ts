@@ -1,11 +1,7 @@
-import {
-  DeptParams,
-  DeptListGetResultModel,
-  DeptItem,
-} from './model/deptModel';
+import { DeptParams, DeptListGetResultModel, DeptItem } from './model/deptModel';
 import { defHttp } from '/@/utils/http/axios';
 
-enum Api { 
+enum Api {
   DeptList = '/dept/getdeptlist',
   AddDept = '/dept/adddept',
   UpdateDept = '/dept/updatedept',
@@ -19,6 +15,6 @@ export const addDept = (params?: DeptItem) => defHttp.post<boolean>({ url: Api.A
 
 export const updateDept = (params?: DeptItem) =>
   defHttp.post<boolean>({ url: Api.UpdateDept, params });
-  
+
 export const removeDept = (id: string) =>
   defHttp.delete<boolean>({ url: Api.RemoveDept, params: { id } });

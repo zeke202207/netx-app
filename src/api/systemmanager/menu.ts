@@ -1,8 +1,4 @@
-import {
-  MenuParams,
-  MenuListGetResultModel,
-  MenuItem,
-} from './model/menuModel';
+import { MenuParams, MenuListGetResultModel, MenuItem } from './model/menuModel';
 import { defHttp } from '/@/utils/http/axios';
 
 enum Api {
