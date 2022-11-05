@@ -25,6 +25,7 @@
           icon="ion:lock-closed-outline"
         />
         <MenuItem key="changepwd" text="修改密码" icon="arcticons:passwordgenerator" />
+        <MenuItem key="usersetting" text="个人设置" icon="ant-design:radius-setting-outlined" />
         <MenuItem
           key="logout"
           :text="t('layout.header.dropdownItemLoginOut')"
@@ -57,7 +58,7 @@
 
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
-  type MenuEvent = 'logout' | 'doc' | 'lock' | 'changepwd';
+  type MenuEvent = 'logout' | 'doc' | 'lock' | 'changepwd' | 'usersetting';
 
   export default defineComponent({
     name: 'UserDropdown',
@@ -67,7 +68,7 @@
       MenuItem: createAsyncComponent(() => import('./DropMenuItem.vue')),
       MenuDivider: Menu.Divider,
       ChangePwdAction: createAsyncComponent(
-        () => import('/@/views/systemmanager/account/ChangePwdModal.vue'),
+        () => import('/@/views/systemmanager/account/changePwdModal.vue'),
       ),
       LockAction: createAsyncComponent(() => import('../lock/LockModal.vue')),
     },
@@ -106,6 +107,11 @@
         openModalChangePwd(true);
       }
 
+      // 修改个人设置
+      function handleUserSetting() {
+        alert('个人设置修改筹划中');
+      }
+
       function handleMenuClick(e: MenuInfo) {
         switch (e.key as MenuEvent) {
           case 'logout':
@@ -119,6 +125,9 @@
             break;
           case 'changepwd':
             handleChangePwd();
+            break;
+          case 'usersetting':
+            handleUserSetting();
             break;
         }
       }

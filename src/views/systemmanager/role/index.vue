@@ -10,7 +10,7 @@
             :actions="[
               {
                 disabled: record.apicheck === '0',
-                icon: 'ant-design:unlock-outlined',
+                icon: 'ant-design:lock-outlined',
                 onClick: handleSetApi.bind(null, record),
               },
               {

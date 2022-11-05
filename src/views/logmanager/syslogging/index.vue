@@ -6,7 +6,7 @@
           <TableAction
             :actions="[
               {
-                icon: 'ant-design:more-outlined',
+                icon: 'ant-design:bars-outlined',
                 onClick: handleDetail.bind(null, record),
               },
             ]"
