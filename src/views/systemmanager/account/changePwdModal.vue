@@ -1,8 +1,6 @@
 <template>
-  <BasicModal @register="register" @ok="handleSubmit">
-    <div class="py-8 bg-white flex flex-col justify-center items-center">
-      <BasicForm @register="registerForm" />
-    </div>
+  <BasicModal v-bind="$attrs" title="修改密码" @register="register" @ok="handleSubmit">
+    <BasicForm @register="registerForm" />
   </BasicModal>
 </template>
 <script lang="ts">
@@ -18,7 +16,6 @@
     setup(_, { emit }) {
       const [register, { closeModal, setModalProps }] = useModalInner();
       const [registerForm, { validate, resetFields }] = useForm({
-        size: 'large',
         baseColProps: { span: 24 },
         labelWidth: 100,
         showActionButtonGroup: false,
@@ -41,5 +38,3 @@
     },
   });
 </script>
-
-<style lang="less"></style>

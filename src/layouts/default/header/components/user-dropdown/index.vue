@@ -24,8 +24,8 @@
           :text="t('layout.header.tooltipLock')"
           icon="ion:lock-closed-outline"
         />
-        <MenuItem key="changepwd" text="修改密码" icon="arcticons:passwordgenerator" />
-        <MenuItem key="usersetting" text="个人设置" icon="ant-design:radius-setting-outlined" />
+        <MenuItem key="changepwd" v-if="false" text="修改密码" icon="arcticons:passwordgenerator" />
+        <MenuItem key="usersetting" text="个人设置" icon="ant-design:user-outlined" />
         <MenuItem
           key="logout"
           :text="t('layout.header.dropdownItemLoginOut')"
@@ -55,8 +55,8 @@
   import headerImg from '/@/assets/images/header.jpg';
   import { propTypes } from '/@/utils/propTypes';
   import { openWindow } from '/@/utils';
-
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+  import { useGo } from '/@/hooks/web/usePage';
 
   type MenuEvent = 'logout' | 'doc' | 'lock' | 'changepwd' | 'usersetting';
 
@@ -76,6 +76,7 @@
       theme: propTypes.oneOf(['dark', 'light']),
     },
     setup() {
+      const go = useGo();
       const { prefixCls } = useDesign('header-user-dropdown');
       const { t } = useI18n();
       const { getShowDoc, getUseLockPage } = useHeaderSetting();
@@ -109,7 +110,7 @@
 
       // 修改个人设置
       function handleUserSetting() {
-        alert('个人设置修改筹划中');
+        go('/system/setting');
       }
 
       function handleMenuClick(e: MenuInfo) {
