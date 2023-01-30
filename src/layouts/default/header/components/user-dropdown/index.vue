@@ -57,6 +57,8 @@
   import { openWindow } from '/@/utils';
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
   import { useGo } from '/@/hooks/web/usePage';
+  import { useGlobSetting } from '/@/hooks/setting';
+  const { uploadUrl = '' } = useGlobSetting();
 
   type MenuEvent = 'logout' | 'doc' | 'lock' | 'changepwd' | 'usersetting';
 
@@ -86,7 +88,7 @@
 
       const getUserInfo = computed(() => {
         const { nickname = '', avatar, desc } = userStore.getUserInfo || {};
-        return { nickname, avatar: avatar || headerImg, desc };
+        return { nickname, avatar: uploadUrl + '/' + avatar || headerImg, desc };
       });
 
       function handleLock() {

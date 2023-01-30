@@ -34,6 +34,7 @@
   import { baseSetschemas } from './data';
   import { useUserStore } from '/@/store/modules/user';
   import { uploadApi } from '/@/api/sys/upload';
+  import { useGlobSetting } from '/@/hooks/setting';
 
   export default defineComponent({
     components: {
@@ -47,6 +48,7 @@
     setup() {
       const { createMessage } = useMessage();
       const userStore = useUserStore();
+      const { uploadUrl = '' } = useGlobSetting();
 
       const [register, { setFieldsValue }] = useForm({
         labelWidth: 120,
@@ -61,7 +63,7 @@
 
       const avatar = computed(() => {
         const { avatar } = userStore.getUserInfo;
-        return avatar || headerImg;
+        return uploadUrl + '/' + avatar || headerImg;
       });
 
       function updateAvatar({ src, data }) {
