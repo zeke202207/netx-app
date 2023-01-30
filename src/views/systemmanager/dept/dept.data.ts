@@ -85,6 +85,7 @@ export const formSchema: FormSchema[] = [
   {
     field: 'parentid',
     label: '上级部门',
+    required: false,
     component: 'TreeSelect',
     componentProps: {
       fieldNames: {
@@ -94,7 +95,6 @@ export const formSchema: FormSchema[] = [
       },
       getPopupContainer: () => document.body,
     },
-    required: false,
   },
   {
     field: 'orderno',

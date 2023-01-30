@@ -1,9 +1,9 @@
 <template>
   <div class="m-4 mr-0 overflow-hidden bg-white">
     <BasicTree
-      title="部门列表"
-      toolbar
-      search
+      title="请选择部门"
+      :toolbar="false"
+      :search="false"
       :clickRowToExpand="false"
       :treeData="treeData"
       :fieldNames="{ key: 'id', title: 'deptname' }"

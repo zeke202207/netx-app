@@ -30,9 +30,7 @@
   import { LoadingOutlined } from '@ant-design/icons-vue';
   import { useI18n } from '/@/hooks/web/useI18n';
   import { propTypes } from '/@/utils/propTypes';
-
   type OptionsItem = { label: string; value: string; disabled?: boolean };
-
   export default defineComponent({
     name: 'ApiSelect',
     components: {
@@ -59,7 +57,7 @@
       immediate: propTypes.bool.def(true),
       alwaysLoad: propTypes.bool.def(false),
     },
-    emits: ['options-change', 'change'],
+    emits: ['options-change', 'change', 'update:value'],
     setup(props, { emit }) {
       const options = ref<OptionsItem[]>([]);
       const loading = ref(false);
@@ -67,13 +65,10 @@
       const emitData = ref<any[]>([]);
       const attrs = useAttrs();
       const { t } = useI18n();
-
       // Embedded in the form, just use the hook binding to perform form verification
       const [state] = useRuleFormItem(props, 'value', 'change', emitData);
-
       const getOptions = computed(() => {
         const { labelField, valueField, numberToString } = props;
-
         return unref(options).reduce((prev, next: Recordable) => {
           if (next) {
             const value = next[valueField];
@@ -86,11 +81,15 @@
           return prev;
         }, [] as OptionsItem[]);
       });
-
       watchEffect(() => {
         props.immediate && !props.alwaysLoad && fetch();
       });
-
+      watch(
+        () => state.value,
+        (v) => {
+          emit('update:value', v);
+        },
+      );
       watch(
         () => props.params,
         () => {
@@ -98,7 +97,6 @@
         },
         { deep: true },
       );
-
       async function fetch() {
         const api = props.api;
         if (!api || !isFunction(api)) return;
@@ -121,7 +119,6 @@
           loading.value = false;
         }
       }
-
       async function handleFetch(visible) {
         if (visible) {
           if (props.alwaysLoad) {
@@ -132,15 +129,12 @@
           }
         }
       }
-
       function emitChange() {
         emit('options-change', unref(getOptions));
       }
-
       function handleChange(_, ...args) {
         emitData.value = args;
       }
-
       return { state, attrs, getOptions, loading, t, handleFetch, handleChange };
     },
   });
