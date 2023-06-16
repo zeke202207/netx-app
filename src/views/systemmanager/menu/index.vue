@@ -35,7 +35,7 @@
   import { defineComponent, nextTick } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getMenuList, removeMenu } from '/@/api/systemmanager/system';
+  import { getMenuList, removeMenu } from '/@/api/systemmanager/menu';
 
   import { useDrawer } from '/@/components/Drawer';
   import MenuDrawer from './MenuDrawer.vue';

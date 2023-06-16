@@ -15,7 +15,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { formSchema } from './dept.data';
 
-  import { getDeptList, addDept, updateDept } from '/@/api/systemmanager/system';
+  import { getDeptList, addDept, updateDept } from '/@/api/systemmanager/dept';
   export default defineComponent({
     name: 'DeptDrawer',
     components: { BasicDrawer, BasicForm },

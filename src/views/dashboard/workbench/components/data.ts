@@ -11,6 +11,16 @@ interface ContentInfoItem {
 
 export const changeLogInfoItems: ChangeLogInfoItem[] = [
   {
+    version: '1.0.0.1',
+    changedate: '2022-00-00',
+    content: [
+      {
+        iconname: 'beautifycode',
+        info: '优化[systemmanager]前端结构，使其更模块化',
+      }
+    ],
+  },
+  {
     version: '1.0.0.0',
     changedate: '2022-10-30',
     content: [

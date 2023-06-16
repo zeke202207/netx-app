@@ -10,7 +10,7 @@
             :actions="[
               {
                 disabled: record.apicheck === '0',
-                icon: 'ant-design:unlock-outlined',
+                icon: 'ant-design:lock-outlined',
                 onClick: handleSetApi.bind(null, record),
               },
               {
@@ -38,7 +38,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getRoleListByPage, removeRole } from '/@/api/systemmanager/system';
+  import { getRoleListByPage, removeRole } from '/@/api/systemmanager/role';
   import { useDrawer } from '/@/components/Drawer';
   import RoleDrawer from './RoleDrawer.vue';
   import ApiAuthDrawer from './ApiAuthDrawer.vue';

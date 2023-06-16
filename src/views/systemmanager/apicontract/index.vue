@@ -33,7 +33,7 @@
 <script lang="ts">
   import { defineComponent } from 'vue';
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getApiListByPage, removeApi } from '/@/api/systemmanager/system';
+  import { getApiListByPage, removeApi } from '/@/api/systemmanager/appinterface';
   import { useDrawer } from '/@/components/Drawer';
   import ApiDrawer from './apicontractDrawer.vue';
   import { columns, searchFormSchema } from './apicontract.data';

@@ -33,7 +33,7 @@
   import { defineComponent } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
-  import { getDeptList, removeDept } from '/@/api/systemmanager/system';
+  import { getDeptList, removeDept } from '/@/api/systemmanager/dept';
 
   import { useDrawer } from '/@/components/Drawer';
   import DeptDrawer from './DeptDrawer.vue';

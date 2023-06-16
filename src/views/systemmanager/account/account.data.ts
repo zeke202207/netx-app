@@ -1,4 +1,4 @@
-import { getAllRoleList } from '/@/api/systemmanager/system';
+import { getAllRoleList } from '/@/api/systemmanager/role';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 
@@ -25,7 +25,7 @@ export const columns: BasicColumn[] = [
   },
   {
     title: '备注',
-    dataIndex: 'remark',    
+    dataIndex: 'remark',
     align: 'left',
   },
 ];
@@ -86,6 +86,8 @@ export const accountFormSchema: FormSchema[] = [
       api: getAllRoleList,
       labelField: 'rolename',
       valueField: 'id',
+      alwaysLoad: 'false',
+      immediate: 'false',
     },
     required: false,
   },

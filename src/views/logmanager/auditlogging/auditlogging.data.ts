@@ -20,12 +20,12 @@ export const columns: BasicColumn[] = [
     width: 50,
     align: 'left',
   },
+  /*
   {
     title: '远程地址',
     dataIndex: 'remoteipv4',
     width: 200,
   },
-  /*
   {
     title: '详情',
     dataIndex: 'detail',

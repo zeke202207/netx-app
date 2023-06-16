@@ -14,11 +14,11 @@
           v-model:value="model[field]"
           :treeData="treeData"
           :checkedKeys="checkedKeys"
-          :fieldNames="{ title: 'name', key: 'id' }"
+          :fieldNames="{ title: 'title', key: 'id' }"
           checkable
           :toolbar="false"
           :checkStrictly="true"
-          title="菜单分配"          
+          title="菜单分配"
         />
       </template>
     </BasicForm>
@@ -30,7 +30,8 @@
   import { formSchema } from './role.data';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { BasicTree, TreeItem, CheckKeys } from '/@/components/Tree';
-  import { getMenuList, updateRole, addRole } from '/@/api/systemmanager/system';
+  import { updateRole, addRole } from '/@/api/systemmanager/role';
+  import { getMenuList } from '/@/api/systemmanager/menu';
   import { isArray } from '/@/utils/is';
 
   export default defineComponent({
@@ -40,7 +41,7 @@
     setup(_, { emit }) {
       const isUpdate = ref(true);
       const treeData = ref<TreeItem[]>([]);
-      const checkedKeys =ref<CheckKeys[]>([])
+      const checkedKeys = ref<CheckKeys[]>([]);
 
       const [registerForm, { resetFields, setFieldsValue, validate }] = useForm({
         labelWidth: 90,
@@ -73,8 +74,8 @@
           setDrawerProps({ confirmLoading: true });
           console.log(values);
           if (unref(isUpdate)) {
-            if(isArray(values.menu)){
-              values.menu= { checked: values.menu, halfChecked: [] }
+            if (isArray(values.menu)) {
+              values.menu = { checked: values.menu, halfChecked: [] };
             }
             await updateRole(values);
           } else {
@@ -93,7 +94,7 @@
         getTitle,
         handleSubmit,
         treeData,
-        checkedKeys
+        checkedKeys,
       };
     },
   });

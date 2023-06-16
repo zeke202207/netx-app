@@ -2,7 +2,7 @@ import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
 import { Switch } from 'ant-design-vue';
-import { setRoleStatus, setApiCheckStatus } from '/@/api/systemmanager/system';
+import { setRoleStatus, setApiCheckStatus } from '/@/api/systemmanager/role';
 import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
@@ -157,5 +157,9 @@ export const formSchema: FormSchema[] = [
     field: 'menu',
     slot: 'menu',
     component: 'Input',
+    defaultValue: {
+      checked: [],
+      halfChecked: [],
+    },
   },
 ];
