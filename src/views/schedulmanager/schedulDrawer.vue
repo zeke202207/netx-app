@@ -76,6 +76,15 @@
       }
 
       function GetSchedulItemData(values: any): ScheduleItem {
+        debugger;
+        let startAt = null;
+        let endAt = null;
+        if (values.startAt != null && values.startAt != undefined) {
+          startAt = values.startAt[0];
+          if (values.startAt.length == 2) {
+            endAt = values.startAt[1];
+          }
+        }
         let jobItem: SchedulJobItem = {
           name: values.jobName,
           group: values.group,
@@ -88,8 +97,8 @@
           name: values.jobName + 'trigger',
           description: 'trigger descrption',
           cronExpression: values.CronExpression,
-          startAt: values.startAt,
-          endAt: values.endAt,
+          startAt: startAt,
+          endAt: endAt,
           startNow: values.startNow,
           priority: values.priority,
         };

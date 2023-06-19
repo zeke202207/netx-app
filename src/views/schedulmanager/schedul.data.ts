@@ -123,15 +123,8 @@ export const formSchema: FormSchema[] = [
   },
   {
     field: 'startAt',
-    label: '开始时间:',
-    component: 'DatePicker',
-    required: false,
-    show: true,
-  },
-  {
-    field: 'endAt',
-    label: '截至时间:',
-    component: 'DatePicker',
+    label: '有效期:',
+    component: 'RangePicker',
     required: false,
     show: true,
   },

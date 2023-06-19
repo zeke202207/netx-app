@@ -31,8 +31,8 @@ export interface SchedulTriggerItem {
   name: string;
   description: string;
   cronExpression: string;
-  startAt: Date;
-  endAt: Date;
+  startAt: Date | null;
+  endAt: Date | null;
   startNow: boolean;
   priority: number;
 }
