@@ -25,6 +25,8 @@ export interface SchedulJobItem {
   jobDataMap: string;
   description: string;
   disAllowConcurrentExecution: boolean;
+  enabled: boolean;
+  state: number;
 }
 
 export interface SchedulTriggerItem {
@@ -37,4 +39,9 @@ export interface SchedulTriggerItem {
   priority: number;
 }
 
+export interface SupportJobTypeItem {
+  typeName: string;
+}
+
 export type SchedulListGetResultModel = BasicFetchResult<SchedulListItem>;
+export type SupportJobTypeList = BasicFetchResult<SupportJobTypeItem>;

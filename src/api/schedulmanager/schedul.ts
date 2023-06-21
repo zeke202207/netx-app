@@ -3,6 +3,7 @@ import {
   SchedulListGetResultModel,
   ScheduleItem,
   SchedulListItem,
+  SupportJobTypeList,
 } from './model/schedulModel';
 import { defHttp } from '/@/utils/http/axios';
 
@@ -13,6 +14,7 @@ enum Api {
   UpdateSchedul = '/jobtask/pausejob',
   ResumeSchedul = '/jobtask/resumejob',
   RemoveSchedul = '/jobtask/removejob',
+  SupportJobType = '/jobtask/getjobtasktype',
 }
 
 export const getSchedulList = (params?: SchedulParams) =>
@@ -32,3 +34,6 @@ export const resumeSchedul = (id: string) =>
 
 export const removeSchedul = (id: string) =>
   defHttp.post<boolean>({ url: Api.RemoveSchedul, params: { id } });
+
+export const getAllSupportJobType = () =>
+  defHttp.post<SupportJobTypeList>({ url: Api.SupportJobType });

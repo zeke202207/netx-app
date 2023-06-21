@@ -78,7 +78,6 @@
       }
 
       async function handleDelete(record: Recordable) {
-        debugger;
         await removeSchedul(record.Id).then(() => {
           reload();
         });

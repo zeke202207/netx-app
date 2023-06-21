@@ -76,7 +76,6 @@
       }
 
       function GetSchedulItemData(values: any): ScheduleItem {
-        debugger;
         let startAt = null;
         let endAt = null;
         if (values.startAt != null && values.startAt != undefined) {
@@ -92,6 +91,8 @@
           jobDataMap: values.jobDataMap,
           description: values.description,
           disAllowConcurrentExecution: values.disAllowConcurrentExecution,
+          enabled: values.enabled,
+          state: 0,
         };
         let triggerItem: SchedulTriggerItem = {
           name: values.jobName + 'trigger',
