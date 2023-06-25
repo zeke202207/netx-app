@@ -1,7 +1,9 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
-import { Tag } from 'ant-design-vue';
+import { Tag, Switch } from 'ant-design-vue';
+import { getAllSupportJobType, enabledJob } from '/@/api/schedulmanager/schedul';
+import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
@@ -13,7 +15,7 @@ export const columns: BasicColumn[] = [
   {
     title: '任务分组',
     dataIndex: 'Group',
-    width: 50,
+    width: 100,
   },
   {
     title: '任务',
@@ -21,7 +23,7 @@ export const columns: BasicColumn[] = [
     width: 160,
   },
   {
-    title: '是否允许并发',
+    title: '允许并发',
     dataIndex: 'DisAllowConcurrentExecution',
     width: 80,
     customRender: ({ record }) => {
@@ -32,6 +34,7 @@ export const columns: BasicColumn[] = [
       return h(Tag, { color: color }, () => text);
     },
   },
+  /*
   {
     title: '任务参数',
     dataIndex: 'JobDataMap',
@@ -43,13 +46,67 @@ export const columns: BasicColumn[] = [
       return JSON.stringify(record.JobDataMap);
     },
   },
+  */
   {
-    title: 'Cron表达式',
+    title: 'Cron',
     dataIndex: 'Trigger',
     width: 180,
     customRender: ({ record }) => {
       const text = record.Trigger.CronExpression;
       return text;
+    },
+  },
+  {
+    title: '是否启用',
+    dataIndex: 'enabled',
+    width: 80,
+    customRender: ({ record }) => {
+      return h(Switch, {
+        checked: record.Enabled,
+        checkedChildren: '已启用',
+        unCheckedChildren: '已禁用',
+        loading: record.pendingStatus,
+        onChange(checked: boolean) {
+          record.pendingStatus = true;
+          const newStatus = checked;
+          const { createMessage } = useMessage();
+          enabledJob(record.Id, newStatus)
+            .then(() => {
+              record.Enabled = newStatus;
+              record.State = 2;
+              createMessage.success(`修改启用状态成功`);
+            })
+            .catch(() => {
+              createMessage.error('修改启用状态失败');
+            })
+            .finally(() => {
+              record.pendingStatus = false;
+            });
+        },
+      });
+    },
+  },
+  {
+    title: '任务状态',
+    dataIndex: 'State',
+    width: 160,
+    customRender: ({ record }) => {
+      // 0->None 1->Started 2->Paused 3->Resumed 4->Deleted 5->Interrupted
+      const state = record.State;
+      switch (state) {
+        case 1:
+          return '运行中';
+        case 2:
+          return '暂停';
+        case 3:
+          return '恢复';
+        case 4:
+          return '删除';
+        case 5:
+          return '中断';
+        default:
+          return '已停止';
+      }
     },
   },
   {
@@ -59,7 +116,14 @@ export const columns: BasicColumn[] = [
   },
 ];
 
-export const searchFormSchema: FormSchema[] = [];
+export const searchFormSchema: FormSchema[] = [
+  {
+    field: 'jobName',
+    label: '任务名称:',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
+];
 
 export const formSchema: FormSchema[] = [
   {
@@ -93,10 +157,22 @@ export const formSchema: FormSchema[] = [
   {
     field: 'jobType',
     label: '任务类型:',
-    component: 'Input',
+    component: 'ApiSelect',
     required: true,
     show: true,
-    helpMessage: 'C# -> namespace.classname',
+    componentProps: ({ formActionType }) => {
+      return {
+        api: getAllSupportJobType,
+        showArrow: true,
+        showSearch: false,
+        labelField: 'TypeName',
+        valueField: 'TypeName',
+        getPopupContainer: () => document.body,
+        onOptionsChange: (options) => {
+          formActionType.setFieldsValue({ jobType: options[0].value });
+        },
+      };
+    },
   },
   {
     field: 'jobDataMap',
@@ -108,18 +184,24 @@ export const formSchema: FormSchema[] = [
   },
   {
     field: 'disAllowConcurrentExecution',
-    label: '允许并发执行:',
+    label: '并发执行:',
+    component: 'Switch',
+    show: true,
+  },
+  {
+    field: 'enabled',
+    label: '是否启用:',
     component: 'Switch',
     show: true,
   },
   //trigger
   {
     field: 'CronExpression',
-    label: 'cron表达式:',
+    label: 'Cron:',
     component: 'Input',
     required: true,
     show: true,
-    helpMessage: 'cron表达式',
+    helpMessage: 'Cron表达式',
   },
   {
     field: 'startAt',
@@ -130,7 +212,7 @@ export const formSchema: FormSchema[] = [
   },
   {
     field: 'startNow',
-    label: '是否立即执行:',
+    label: '立即执行:',
     component: 'Switch',
     show: true,
   },
