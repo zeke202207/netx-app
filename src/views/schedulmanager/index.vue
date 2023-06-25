@@ -9,6 +9,23 @@
           <TableAction
             :actions="[
               {
+                icon: 'clarity:number-list-line',
+                tooltip: '任务参数',
+                onClick: handleParamDetail.bind(null, record),
+              },
+              {
+                icon: 'clarity:pause-line',
+                tooltip: '暂停',
+                onClick: handlePause.bind(null, record),
+                disabled: record.State != 1 || !record.Enabled,
+              },
+              {
+                icon: 'clarity:play-line',
+                tooltip: '恢复',
+                onClick: handleResume.bind(null, record),
+                disabled: record.State == 1 || !record.Enabled,
+              },
+              {
                 icon: 'ant-design:delete-outlined',
                 color: 'error',
                 popConfirm: {
@@ -26,21 +43,22 @@
   </div>
 </template>
 <script lang="ts">
-  import { defineComponent } from 'vue';
+  import { defineComponent, h } from 'vue';
 
   import { BasicTable, useTable, TableAction } from '/@/components/Table';
   import {
     getSchedulList,
-    GetSchedulById,
-    addSchedul,
-    resumeSchedul,
     removeSchedul,
+    resumeJob,
+    pauseJob,
   } from '/@/api/schedulmanager/schedul';
 
   import { useDrawer } from '/@/components/Drawer';
   import SchedulDrawer from './schedulDrawer.vue';
 
   import { columns, searchFormSchema } from './schedul.data';
+  import { JsonPreview } from '/@/components/CodeEditor';
+  import { Modal } from 'ant-design-vue';
 
   export default defineComponent({
     name: 'Dept',
@@ -63,7 +81,7 @@
         showIndexColumn: false,
         canResize: false,
         actionColumn: {
-          width: 80,
+          width: 160,
           title: '操作',
           dataIndex: 'action',
           // slots: { customRender: 'action' },
@@ -87,12 +105,36 @@
         reload();
       }
 
+      async function handlePause(record: Recordable) {
+        await pauseJob(record.Id).then(() => {
+          reload();
+        });
+      }
+
+      async function handleResume(record: Recordable) {
+        await resumeJob(record.Id).then(() => {
+          reload();
+        });
+      }
+
+      function handleParamDetail(record: Recordable) {
+        Modal.info({
+          title: '任务执行参数',
+          content: h(JsonPreview, { data: record.JobDataMap ?? '{}' }),
+          okText: '关闭',
+          icon: '',
+        });
+      }
+
       return {
         registerTable,
         registerDrawer,
         handleCreate,
         handleDelete,
         handleSuccess,
+        handlePause,
+        handleResume,
+        handleParamDetail,
       };
     },
   });

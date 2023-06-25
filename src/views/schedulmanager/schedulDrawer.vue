@@ -16,14 +16,7 @@
   import { BasicForm, useForm } from '/@/components/Form/index';
   import { BasicDrawer, useDrawerInner } from '/@/components/Drawer';
   import { formSchema } from './schedul.data';
-  import {
-    getSchedulList,
-    GetSchedulById,
-    addSchedul,
-    resumeSchedul,
-    removeSchedul,
-    updateSchedul,
-  } from '/@/api/schedulmanager/schedul';
+  import { addSchedul } from '/@/api/schedulmanager/schedul';
   import {
     ScheduleItem,
     SchedulTriggerItem,
@@ -66,7 +59,7 @@
             let sItem = GetSchedulItemData(values);
             await addSchedul(sItem);
           } else {
-            await updateSchedul(values);
+            //await updateSchedul(values);
           }
           closeDrawer();
           emit('success');

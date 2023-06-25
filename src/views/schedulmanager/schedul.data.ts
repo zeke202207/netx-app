@@ -1,8 +1,9 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
 import { h } from 'vue';
-import { Tag } from 'ant-design-vue';
-import { getAllSupportJobType } from '/@/api/schedulmanager/schedul';
+import { Tag, Switch } from 'ant-design-vue';
+import { getAllSupportJobType, enabledJob } from '/@/api/schedulmanager/schedul';
+import { useMessage } from '/@/hooks/web/useMessage';
 
 export const columns: BasicColumn[] = [
   {
@@ -33,6 +34,7 @@ export const columns: BasicColumn[] = [
       return h(Tag, { color: color }, () => text);
     },
   },
+  /*
   {
     title: '任务参数',
     dataIndex: 'JobDataMap',
@@ -44,6 +46,7 @@ export const columns: BasicColumn[] = [
       return JSON.stringify(record.JobDataMap);
     },
   },
+  */
   {
     title: 'Cron',
     dataIndex: 'Trigger',
@@ -58,9 +61,29 @@ export const columns: BasicColumn[] = [
     dataIndex: 'enabled',
     width: 80,
     customRender: ({ record }) => {
-      const color = record.Enabled ? 'green' : 'red';
-      const text = record.Enabled ? '启用' : '禁用';
-      return h(Tag, { color: color }, () => text);
+      return h(Switch, {
+        checked: record.Enabled,
+        checkedChildren: '已启用',
+        unCheckedChildren: '已禁用',
+        loading: record.pendingStatus,
+        onChange(checked: boolean) {
+          record.pendingStatus = true;
+          const newStatus = checked;
+          const { createMessage } = useMessage();
+          enabledJob(record.Id, newStatus)
+            .then(() => {
+              record.Enabled = newStatus;
+              record.State = 2;
+              createMessage.success(`修改启用状态成功`);
+            })
+            .catch(() => {
+              createMessage.error('修改启用状态失败');
+            })
+            .finally(() => {
+              record.pendingStatus = false;
+            });
+        },
+      });
     },
   },
   {
@@ -93,7 +116,14 @@ export const columns: BasicColumn[] = [
   },
 ];
 
-export const searchFormSchema: FormSchema[] = [];
+export const searchFormSchema: FormSchema[] = [
+  {
+    field: 'jobName',
+    label: '任务名称:',
+    component: 'Input',
+    colProps: { span: 8 },
+  },
+];
 
 export const formSchema: FormSchema[] = [
   {
