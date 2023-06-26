@@ -23,7 +23,7 @@ export const columns: BasicColumn[] = [
     width: 160,
   },
   {
-    title: '允许并发',
+    title: '禁用并发',
     dataIndex: 'DisAllowConcurrentExecution',
     width: 80,
     customRender: ({ record }) => {
@@ -95,17 +95,17 @@ export const columns: BasicColumn[] = [
       const state = record.State;
       switch (state) {
         case 1:
-          return '运行中';
+          return h(Tag, { color: 'green' }, () => '运行中');
         case 2:
-          return '暂停';
+          return h(Tag, { color: 'red' }, () => '暂停');
         case 3:
-          return '恢复';
+          return h(Tag, { color: 'red' }, () => '恢复');
         case 4:
-          return '删除';
+          return h(Tag, { color: 'red' }, () => '删除');
         case 5:
-          return '中断';
+          return h(Tag, { color: 'red' }, () => '中断');
         default:
-          return '已停止';
+          return h(Tag, { color: 'red' }, () => '停止');
       }
     },
   },
@@ -158,20 +158,49 @@ export const formSchema: FormSchema[] = [
     field: 'jobType',
     label: '任务类型:',
     component: 'ApiSelect',
-    required: true,
+    //required: true,
     show: true,
     componentProps: ({ formActionType }) => {
       return {
         api: getAllSupportJobType,
-        showArrow: true,
-        showSearch: false,
         labelField: 'TypeName',
-        valueField: 'TypeName',
+        valueField: 'Id',
+        showArrow: true,
+        immediate: true,
+        showSearch: false,
+        allowClear: false,
+        defaultActiveFirstOption: true,
+        mode: 'combobox',
+        placeholder: '请选择任务类型',
         getPopupContainer: () => document.body,
         onOptionsChange: (options) => {
           formActionType.setFieldsValue({ jobType: options[0].value });
         },
+        //onChange: (e, option) => {
+        //  const x = e;
+        //  console.log(x);
+        //},
       };
+    },
+    dynamicRules: ({ values }) => {
+      return [
+        {
+          required: true,
+          validator: (_, value) => {
+            if (value == undefined) {
+              if (values.TypeName === undefined) {
+                return Promise.reject('任务类型不能为空');
+              } else {
+                return Promise.resolve();
+              }
+            }
+            if (!value) {
+              return Promise.reject('任务类型不能为空');
+            }
+            return Promise.resolve();
+          },
+        },
+      ];
     },
   },
   {
@@ -184,7 +213,7 @@ export const formSchema: FormSchema[] = [
   },
   {
     field: 'disAllowConcurrentExecution',
-    label: '并发执行:',
+    label: '禁用并发:',
     component: 'Switch',
     show: true,
   },
@@ -202,6 +231,21 @@ export const formSchema: FormSchema[] = [
     required: true,
     show: true,
     helpMessage: 'Cron表达式',
+    dynamicRules: ({ values }) => {
+      return [
+        {
+          required: true,
+          validator: (_, value) => {
+            const regexpLastWord =
+              '^\\s*($|#|\\w+\\s*=|(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?(?:,(?:[0-5]?\\d)(?:(?:-|\\/|\\,)(?:[0-5]?\\d))?)*)\\s+(\\?|\\*|(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?(?:,(?:[01]?\\d|2[0-3])(?:(?:-|\\/|\\,)(?:[01]?\\d|2[0-3]))?)*)\\s+(\\?|\\*|(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?(?:,(?:0?[1-9]|[12]\\d|3[01])(?:(?:-|\\/|\\,)(?:0?[1-9]|[12]\\d|3[01]))?)*)\\s+(\\?|\\*|(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?(?:,(?:[1-9]|1[012])(?:(?:-|\\/|\\,)(?:[1-9]|1[012]))?(?:L|W)?)*|\\?|\\*|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?(?:,(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)(?:(?:-)(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))?)*)\\s+(\\?|\\*|(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?(?:,(?:[0-6])(?:(?:-|\\/|\\,|#)(?:[0-6]))?(?:L)?)*|\\?|\\*|(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?(?:,(?:MON|TUE|WED|THU|FRI|SAT|SUN)(?:(?:-)(?:MON|TUE|WED|THU|FRI|SAT|SUN))?)*)(|\\s)+(\\?|\\*|(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?(?:,(?:|\\d{4})(?:(?:-|\\/|\\,)(?:|\\d{4}))?)*))$';
+            if (!value.match(regexpLastWord)) {
+              return Promise.reject('cron表达式错误');
+            }
+            return Promise.resolve();
+          },
+        },
+      ];
+    },
   },
   {
     field: 'startAt',
