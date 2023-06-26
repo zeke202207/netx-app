@@ -17,13 +17,13 @@
                 icon: 'clarity:pause-line',
                 tooltip: '暂停',
                 onClick: handlePause.bind(null, record),
-                disabled: record.State != 1 || !record.Enabled,
+                disabled: !record.Operable ? true : record.State != 1 || !record.Enabled,
               },
               {
                 icon: 'clarity:play-line',
                 tooltip: '恢复',
                 onClick: handleResume.bind(null, record),
-                disabled: record.State == 1 || !record.Enabled,
+                disabled: !record.Operable ? true : record.State == 1 || !record.Enabled,
               },
               {
                 icon: 'ant-design:delete-outlined',

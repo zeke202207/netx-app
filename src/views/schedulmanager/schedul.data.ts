@@ -66,6 +66,7 @@ export const columns: BasicColumn[] = [
         checkedChildren: '已启用',
         unCheckedChildren: '已禁用',
         loading: record.pendingStatus,
+        disabled: !record.Operable,
         onChange(checked: boolean) {
           record.pendingStatus = true;
           const newStatus = checked;
