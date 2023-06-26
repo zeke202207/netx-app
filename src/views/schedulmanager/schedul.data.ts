@@ -23,7 +23,7 @@ export const columns: BasicColumn[] = [
     width: 160,
   },
   {
-    title: '允许并发',
+    title: '禁用并发',
     dataIndex: 'DisAllowConcurrentExecution',
     width: 80,
     customRender: ({ record }) => {
@@ -213,7 +213,7 @@ export const formSchema: FormSchema[] = [
   },
   {
     field: 'disAllowConcurrentExecution',
-    label: '并发执行:',
+    label: '禁用并发:',
     component: 'Switch',
     show: true,
   },
