@@ -4,44 +4,47 @@ import { FormSchema } from '/@/components/Table';
 export const columns: BasicColumn[] = [
   {
     title: '用户',
-    dataIndex: 'username',
-    width: 50,
+    dataIndex: 'NickName',
+    width: 80,
     align: 'left',
   },
   {
-    title: '控制器',
-    dataIndex: 'controller',
-    width: 50,
+    title: '客户端地址',
+    dataIndex: 'ClientIpAddress',
+    width: 80,
     align: 'left',
   },
   {
-    title: '方法',
-    dataIndex: 'action1',
-    width: 50,
-    align: 'left',
-  },
-  /*
-  {
-    title: '远程地址',
-    dataIndex: 'remoteipv4',
+    title: '浏览器信息',
+    dataIndex: 'BrowserInfo',
     width: 200,
+    align: 'left',
   },
   {
-    title: '详情',
-    dataIndex: 'detail',
-    width: 200,
+    title: '执行时间',
+    dataIndex: 'ExecutionTime',
+    width: 130,
   },
-  */
   {
-    title: '创建时间',
-    dataIndex: 'createtime',
+    title: '耗时',
+    dataIndex: 'ExecutionDuration',
+    width: 50,
+  },
+  {
+    title: '服务',
+    dataIndex: 'ServiceName',
+    width: 150,
+  },
+  {
+    title: '接口',
+    dataIndex: 'MethodName',
     width: 100,
   },
 ];
 
 export const searchFormSchema: FormSchema[] = [
   {
-    field: 'username',
+    field: 'NickName',
     label: '用户',
     component: 'Input',
     colProps: { span: 8 },

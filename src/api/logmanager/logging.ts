@@ -9,7 +9,7 @@ import { defHttp } from '/@/utils/http/axios';
 
 enum Api {
   loggingPageList = '/logging/getloglist',
-  auditLoggingPageList = '/logging/getauditloglist',
+  auditLoggingPageList = '/audit/getauditlogs',
   loginLoggingPageList = '/logging/getloginlogList',
 }
 
