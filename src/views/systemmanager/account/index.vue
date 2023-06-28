@@ -67,7 +67,7 @@
         showTableSetting: true,
         bordered: true,
         handleSearchInfoFn(info) {
-          console.log('handleSearchInfoFn', info);
+          // console.log('handleSearchInfoFn', info);
           return info;
         },
         actionColumn: {

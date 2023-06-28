@@ -2,6 +2,7 @@
   <PageWrapper dense contentFullHeight contentClass="flex">
     <BasicTable @register="registerTable" @fetch-success="onFetchSuccess">
       <template #bodyCell="{ column, record }">
+        <!--
         <template v-if="column.key === 'action'">
           <TableAction
             :actions="[
@@ -12,6 +13,7 @@
             ]"
           />
         </template>
+        -->
       </template>
     </BasicTable>
     <LoggingDrawer @register="registerDrawer" />
@@ -44,13 +46,6 @@
         useSearchForm: true,
         showTableSetting: true,
         bordered: true,
-        actionColumn: {
-          width: 80,
-          title: '详情',
-          dataIndex: 'action',
-          // slots: { customRender: 'action' },
-          fixed: undefined,
-        },
       });
 
       function handleDetail(record: Recordable) {
