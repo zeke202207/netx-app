@@ -1,10 +1,10 @@
 <template>
   <Card title="更新日志" v-bind="$attrs">
     <Timeline>
-      <Timeline.Item v-for="logitem in changeLogInfoItems">
+      <Timeline.Item v-for="logitem in changeLogInfoItems" :key="logitem.version">
         <p>{{ logitem.version }}</p>
         <p>{{ logitem.changedate }}</p>
-        <ul v-for="item in logitem.content">
+        <ul v-for="item in logitem.content" :key="item.iconname">
           <li style="padding-left: 30px">
             <SvgIcon style="margin-right: 10px" :name="item.iconname" />
             {{ item.info }}

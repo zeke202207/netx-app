@@ -11,13 +11,73 @@ interface ContentInfoItem {
 
 export const changeLogInfoItems: ChangeLogInfoItem[] = [
   {
+    version: '1.0.0.3 [doing]',
+    changedate: '0000-00-00',
+    content: [
+      {
+        iconname: 'doc',
+        info: '2023-07-01 ：完善文档',
+      },
+      {
+        iconname: 'collect',
+        info: '2023-07-08 ：新功能收集',
+      },
+      {
+        iconname: 'coding',
+        info: '2023-07-15 ：快乐的coding',
+      },
+    ],
+  },
+  {
+    version: '1.0.0.2',
+    changedate: '2023-06-29',
+    content: [
+      {
+        iconname: 'new',
+        info: '审计日志',
+      },
+      {
+        iconname: 'new',
+        info: '计划任务',
+      },
+      {
+        iconname: 'bug',
+        info: '修复BUG',
+      },
+      {
+        iconname: '',
+        info: '     1. uow增加事务支持',
+      },
+      {
+        iconname: '',
+        info: '     2.优化多租户策略解析功能',
+      },
+      {
+        iconname: '',
+        info: '     3.优化多租户策略解析并内置3种策略：域名解析、二级域名解析、请求头解析',
+      },
+      {
+        iconname: '',
+        info: '     4.修复禁用模块产生的问题',
+      },
+      {
+        iconname: '',
+        info: '     5.增加接口拦截计时，用于接口性能分析',
+      },
+      {
+        iconname: '',
+        info: '     6.解决系统logo在linux服务安装中导致的启动失败的问题',
+      },
+    ],
+  },
+  {
     version: '1.0.0.1',
     changedate: '2022-00-00',
     content: [
       {
         iconname: 'beautifycode',
         info: '优化[systemmanager]前端结构，使其更模块化',
-      }
+      },
     ],
   },
   {
@@ -47,18 +107,6 @@ export const changeLogInfoItems: ChangeLogInfoItem[] = [
       {
         iconname: '',
         info: '接口管理',
-      },
-      {
-        iconname: '',
-        info: '系统日志',
-      },
-      {
-        iconname: '',
-        info: '审计日志',
-      },
-      {
-        iconname: '',
-        info: '登录日志',
       },
     ],
   },
