@@ -9,17 +9,19 @@
           <TableAction
             :actions="[
               {
-                disabled: record.apicheck === '0',
+                disabled: record.apicheck === '0' || record.issystem,
                 icon: 'ant-design:lock-outlined',
                 onClick: handleSetApi.bind(null, record),
               },
               {
                 icon: 'clarity:note-edit-line',
                 onClick: handleEdit.bind(null, record),
+                disabled: record.issystem,
               },
               {
                 icon: 'ant-design:delete-outlined',
                 color: 'error',
+                disabled: record.issystem,
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',

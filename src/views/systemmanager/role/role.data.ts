@@ -21,6 +21,7 @@ export const columns: BasicColumn[] = [
         record.pendingStatus = false;
       }
       return h(Switch, {
+        disabled: record.issystem,
         checked: record.status === '1',
         checkedChildren: '已启用',
         unCheckedChildren: '已禁用',
@@ -53,6 +54,7 @@ export const columns: BasicColumn[] = [
         record.pendingApiCheck = false;
       }
       return h(Switch, {
+        disabled: record.issystem,
         checked: record.apicheck === '1',
         checkedChildren: '已启用',
         unCheckedChildren: '已禁用',

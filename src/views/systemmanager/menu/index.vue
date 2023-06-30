@@ -12,6 +12,7 @@
                 icon: 'clarity:note-edit-line',
                 onClick: handleEdit.bind(null, record),
                 ifShow: () => record.path != '/dashboard',
+                disabled: record.issystem,
               },
               {
                 icon: 'ant-design:delete-outlined',
@@ -22,6 +23,7 @@
                   confirm: handleDelete.bind(null, record),
                 },
                 ifShow: () => record.path != '/dashboard',
+                disabled: record.issystem,
               },
             ]"
           />
