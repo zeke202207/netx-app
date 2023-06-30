@@ -13,11 +13,13 @@
                 icon: 'clarity:note-edit-line',
                 tooltip: '编辑用户资料',
                 onClick: handleEdit.bind(null, record),
+                disabled: record.issystem,
               },
               {
                 icon: 'ant-design:delete-outlined',
                 color: 'error',
                 tooltip: '删除此账号',
+                disabled: record.issystem,
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',
