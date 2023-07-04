@@ -18,20 +18,20 @@
   const userStore = useUserStore();
   const permissionStore = usePermissionStore();
   const appStore = useAppStore();
-  const userId = ref<Nullable<number | string>>(0);
+  const id = ref<Nullable<number | string>>(0);
 
   const isBackMode = () => {
     return appStore.getProjectConfig.permissionMode === PermissionModeEnum.BACK;
   };
 
   onMounted(() => {
-    // 记录当前的UserId
-    userId.value = userStore.getUserInfo?.userId;
+    // 记录当前的id
+    id.value = userStore.getUserInfo?.id;
     console.log('Mounted', userStore.getUserInfo);
   });
 
   onBeforeUnmount(() => {
-    if (userId.value && userId.value !== userStore.getUserInfo.userId) {
+    if (id.value && id.value !== userStore.getUserInfo.id) {
       // 登录的不是同一个用户，刷新整个页面以便丢弃之前用户的页面状态
       document.location.reload();
     } else if (isBackMode() && permissionStore.getLastBuildMenuTime === 0) {
