@@ -32,7 +32,7 @@ const transform: AxiosTransform = {
    */
   transformResponseHook: (res: AxiosResponse<Result>, options: RequestOptions) => {
     if (res.headers.hasOwnProperty('duration')) {
-      console.log(res.headers['duration']);
+      console.log(res.headers['duration'] + '->' + res.config.url);
     }
     const { t } = useI18n();
     const { isTransformResponse, isReturnNativeResponse } = options;
