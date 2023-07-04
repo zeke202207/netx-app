@@ -31,6 +31,11 @@ export interface AccountPasswordItem {
   newpwd: string;
 }
 
+export interface AvatarItem {
+  Id: string;
+  Url: string;
+}
+
 /**
  * @description: Request list return value
  */

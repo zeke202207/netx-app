@@ -1,7 +1,7 @@
 <template>
   <div class="lg:flex">
     <Avatar
-      :src="uploadUrl + '/' + userStore.getUserInfo.avatar || headerImg"
+      :src="uploadUrl + '/' + uploadUrl + '/' + userStore.getUserInfo.avatar || headerImg"
       :size="72"
       class="!mx-auto !block"
     />

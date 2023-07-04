@@ -3,6 +3,7 @@ import {
   AccountItem,
   AccountListGetResultModel,
   AccountPasswordItem,
+  AvatarItem,
 } from './model/accountModel';
 import { defHttp } from '/@/utils/http/axios';
 
@@ -13,6 +14,7 @@ enum Api {
   UpdateAccount = '/account/updateaccount',
   RemoveAccount = '/account/removeaccount',
   ChangePwd = '/account/changepassword',
+  ChangeAvatar = '/account/changeavatar',
 }
 
 export const getAccountList = (params: AccountParams) =>
@@ -35,3 +37,6 @@ export const removeAccount = (id: string) =>
 
 export const chanegPassword = (params: AccountPasswordItem) =>
   defHttp.post<boolean>({ url: Api.ChangePwd, params });
+
+export const changeAvatar = (params: AvatarItem) =>
+  defHttp.post<boolean>({ url: Api.ChangeAvatar, params });

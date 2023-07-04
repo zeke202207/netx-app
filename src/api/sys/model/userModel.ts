@@ -10,7 +10,7 @@ export interface LoginParams {
  * @description: Login interface return value
  */
 export interface LoginResultModel {
-  userId: string | number;
+  id: string;
   token: string;
 }
 
@@ -19,7 +19,7 @@ export interface LoginResultModel {
  */
 export interface GetUserInfoModel {
   // 用户id
-  userId: string | number;
+  id: string;
   // 用户名
   username: string;
   // 真实名字
