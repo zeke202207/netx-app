@@ -35,6 +35,8 @@
   import { useUserStore } from '/@/store/modules/user';
   import { uploadApi } from '/@/api/sys/upload';
   import { useGlobSetting } from '/@/hooks/setting';
+  import { changeAvatar } from '/@/api/systemmanager/account';
+  import { AvatarItem } from '/@/api/systemmanager/model/accountModel';
 
   export default defineComponent({
     components: {
@@ -63,14 +65,27 @@
 
       const avatar = computed(() => {
         const { avatar } = userStore.getUserInfo;
-        return uploadUrl + '/' + avatar || headerImg;
+        //return uploadUrl + '/' + avatar || headerImg;
+        return uploadUrl + '/' + uploadUrl + '/' + avatar || headerImg;
       });
 
-      function updateAvatar({ src, data }) {
+      function updateAvatar({ source, data }) {
+        //console.log('src', source);
+        //console.log('data', data);
+        if (data == null || data == undefined || data.result == null || data.result == undefined) {
+          return;
+        }
         const userinfo = userStore.getUserInfo;
-        userinfo.avatar = src;
+        userinfo.avatar = data.result.saveFileName;
         userStore.setUserInfo(userinfo);
-        console.log('data', data);
+        //更新数据库
+        let avatarItem: AvatarItem = {
+          Id: userinfo.id,
+          Url: userinfo.avatar,
+        };
+        changeAvatar(avatarItem).then((r) => {
+          console.log(r);
+        });
       }
 
       return {

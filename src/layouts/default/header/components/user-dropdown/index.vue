@@ -88,7 +88,7 @@
 
       const getUserInfo = computed(() => {
         const { nickname = '', avatar, desc } = userStore.getUserInfo || {};
-        return { nickname, avatar: uploadUrl + '/' + avatar || headerImg, desc };
+        return { nickname, avatar: uploadUrl + '/' + uploadUrl + '/' + avatar || headerImg, desc };
       });
 
       function handleLock() {
