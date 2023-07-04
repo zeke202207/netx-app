@@ -28,6 +28,7 @@
               {
                 icon: 'ant-design:delete-outlined',
                 color: 'error',
+                auth: 'job_delete',
                 popConfirm: {
                   title: '是否确认删除',
                   placement: 'left',
