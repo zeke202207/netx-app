@@ -1,5 +1,7 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { h } from 'vue';
+import { Tag } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
@@ -29,16 +31,23 @@ export const columns: BasicColumn[] = [
     title: '耗时',
     dataIndex: 'ExecutionDuration',
     width: 50,
+    customRender: ({ record }) => {
+      const duration = record.ExecutionDuration;
+      const color = duration > 1000 ? 'red' : 'green';
+      return h(Tag, { color: color }, () => duration);
+    },
   },
   {
     title: '服务',
     dataIndex: 'ServiceName',
     width: 150,
+    align: 'left',
   },
   {
     title: '接口',
     dataIndex: 'MethodName',
     width: 100,
+    align: 'left',
   },
 ];
 

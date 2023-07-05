@@ -7,7 +7,7 @@
     width="50%"
     @ok="handleSubmit"
   >
-  <CodeEditor v-model:value="jsonData" :mode="modeValue" />
+    <CodeEditor v-model:value="jsonData" :mode="modeValue" />
   </BasicDrawer>
 </template>
 <script lang="ts">
@@ -25,7 +25,7 @@
       const modeValue = ref<MODE>(MODE.JSON);
       const jsonData = ref('[]');
       const [registerDrawer, { setDrawerProps, closeDrawer }] = useDrawerInner(async (data) => {
-        jsonData.value =JSON.parse(data.record.detail);
+        jsonData.value = JSON.parse(data.record.detail);
         setDrawerProps({ confirmLoading: false });
         isUpdate.value = !!data?.isUpdate;
       });

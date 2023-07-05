@@ -1,25 +1,47 @@
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { h } from 'vue';
+import { Tag } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
-    title: '接口地址',
+    title: '分组',
+    dataIndex: 'group',
+    width: 80,
+  },
+  {
+    title: '方法',
+    dataIndex: 'method',
+    width: 80,
+    customRender: ({ record }) => {
+      const method = record.method.toUpperCase();
+      let color = 'gray';
+      switch (method) {
+        case 'POST':
+          color = 'green';
+          break;
+        case 'GET':
+          color = 'blue';
+          break;
+        case 'DELETE':
+          color = 'red';
+          break;
+        default:
+        case 'PUT':
+          color = 'gray';
+          break;
+      }
+      return h(Tag, { color: color }, () => method);
+    },
+  },
+  {
+    title: '地址',
     dataIndex: 'path',
     width: 200,
     align: 'left',
   },
   {
-    title: '接口分组',
-    dataIndex: 'group',
-    width: 50,
-  },
-  {
-    title: '接口方法',
-    dataIndex: 'method',
-    width: 50,
-  },
-  {
-    title: '接口描述',
+    title: '描述',
     dataIndex: 'description',
     align: 'left',
     width: 200,
@@ -29,7 +51,7 @@ export const columns: BasicColumn[] = [
 export const searchFormSchema: FormSchema[] = [
   {
     field: 'group',
-    label: '接口分组',
+    label: '分组',
     component: 'Input',
     colProps: { span: 8 },
   },

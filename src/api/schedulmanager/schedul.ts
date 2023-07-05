@@ -28,7 +28,7 @@ export const addSchedul = (params?: ScheduleItem) =>
   defHttp.post<boolean>({ url: Api.AddSchedul, params });
 
 export const removeSchedul = (id: string) =>
-  defHttp.post<boolean>({ url: Api.RemoveSchedul, params: { id } });
+  defHttp.delete<boolean>({ url: Api.RemoveSchedul, params: { id } });
 
 export const getAllSupportJobType = () =>
   defHttp.post<SupportJobTypeList>({ url: Api.SupportJobType });

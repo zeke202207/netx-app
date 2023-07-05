@@ -1,6 +1,8 @@
 import { getAllRoleList } from '/@/api/systemmanager/role';
 import { BasicColumn } from '/@/components/Table';
 import { FormSchema } from '/@/components/Table';
+import { h } from 'vue';
+import { Tag } from 'ant-design-vue';
 
 export const columns: BasicColumn[] = [
   {
@@ -17,6 +19,13 @@ export const columns: BasicColumn[] = [
     title: '角色',
     dataIndex: 'rolename',
     width: 200,
+    customRender: ({ record }) => {
+      const status = record.rolestatus;
+      const enable = ~~status === 1;
+      const color = enable ? 'green' : 'red';
+      const text = enable ? '' : ' (已禁用) ';
+      return h(Tag, { color: color }, () => record.rolename + text);
+    },
   },
   {
     title: '邮箱',

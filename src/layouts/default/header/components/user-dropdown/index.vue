@@ -25,7 +25,12 @@
           icon="ion:lock-closed-outline"
         />
         <MenuItem key="changepwd" v-if="false" text="修改密码" icon="arcticons:passwordgenerator" />
-        <MenuItem key="usersetting" text="个人设置" icon="ant-design:user-outlined" />
+        <MenuItem
+          key="usersetting"
+          text="个人设置"
+          icon="ant-design:user-outlined"
+          v-if="hasPermission(['persionsetting'])"
+        />
         <MenuItem
           key="logout"
           :text="t('layout.header.dropdownItemLoginOut')"
@@ -58,7 +63,9 @@
   import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
   import { useGo } from '/@/hooks/web/usePage';
   import { useGlobSetting } from '/@/hooks/setting';
+  import { usePermission } from '/@/hooks/web/usePermission';
   const { uploadUrl = '' } = useGlobSetting();
+  const { hasPermission } = usePermission();
 
   type MenuEvent = 'logout' | 'doc' | 'lock' | 'changepwd' | 'usersetting';
 
@@ -150,6 +157,7 @@
         getUseLockPage,
         registerChangePwd,
         handleSuccess,
+        hasPermission,
       };
     },
   });
