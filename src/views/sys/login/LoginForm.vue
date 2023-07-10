@@ -73,23 +73,26 @@
     <Divider class="enter-x">{{ t('sys.login.otherSignIn') }}</Divider>
 
     <div class="flex justify-evenly enter-x" :class="`${prefixCls}-sign-in-way`">
+      <a :href="gittlogin"><SvgIcon name="gitee" :size="22" /></a>
+      <!--
       <GithubFilled />
       <WechatFilled />
       <AlipayCircleFilled />
       <GoogleCircleFilled />
       <TwitterCircleFilled />
+      -->
     </div>
 
-    <Divider class="enter-x"></Divider>
+    <Divider class="enter-x" />
 
     <div>
-      <a href="https://beian.miit.gov.cn" target="_blank" >辽ICP备2022010032号-1</a>
+      <a ref="https://beian.miit.gov.cn" target="_blank">辽ICP备2022010032号-1</a>
     </div>
-
   </Form>
 </template>
 <script lang="ts" setup>
   import { reactive, ref, unref, computed } from 'vue';
+  import { SvgIcon } from '/@/components/Icon';
 
   import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
   import {
@@ -124,6 +127,7 @@
   const formRef = ref();
   const loading = ref(false);
   const rememberMe = ref(false);
+  const gittlogin = ref('');
 
   const formData = reactive({
     account: 'zeke',
@@ -163,4 +167,6 @@
       loading.value = false;
     }
   }
+
+  async function giteeLogin() {}
 </script>
