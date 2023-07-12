@@ -73,23 +73,27 @@
     <Divider class="enter-x">{{ t('sys.login.otherSignIn') }}</Divider>
 
     <div class="flex justify-evenly enter-x" :class="`${prefixCls}-sign-in-way`">
+      <a :onClick="giteeLogin"><SvgIcon name="gitee" :size="22" /></a>
+      <!--
       <GithubFilled />
       <WechatFilled />
       <AlipayCircleFilled />
       <GoogleCircleFilled />
       <TwitterCircleFilled />
+      -->
     </div>
 
-    <Divider class="enter-x"></Divider>
+    <Divider class="enter-x" />
 
     <div>
-      <a href="https://beian.miit.gov.cn" target="_blank" >辽ICP备2022010032号-1</a>
+      <a ref="https://beian.miit.gov.cn" target="_blank">辽ICP备2022010032号-1</a>
     </div>
-
   </Form>
+  <OAuthModal @register="registerOAuthModal" />
 </template>
 <script lang="ts" setup>
   import { reactive, ref, unref, computed } from 'vue';
+  import { SvgIcon } from '/@/components/Icon';
 
   import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
   import {
@@ -108,6 +112,9 @@
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
   //import { onKeyStroke } from '@vueuse/core';
+  import { useModal } from '/@/components/Modal';
+  import OAuthModal from './OAuthModal.vue';
+  import { Login, OAuthLoginResult } from './oAuthLogin';
 
   const ACol = Col;
   const ARow = Row;
@@ -131,10 +138,13 @@
   });
 
   const { validForm } = useFormValid(formRef);
-
+  const [registerOAuthModal, { openModal }] = useModal();
   //onKeyStroke('Enter', handleLogin);
 
-  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
+  const getShow = computed(() => {
+    unref(getLoginState) === LoginStateEnum.LOGIN;
+    return {};
+  });
 
   async function handleLogin() {
     const data = await validForm();
@@ -162,5 +172,21 @@
     } finally {
       loading.value = false;
     }
+  }
+
+  async function giteeLogin() {
+    oLogin(0);
+  }
+
+  async function oLogin(platform: number) {
+    let loginResult: OAuthLoginResult = {
+      oAuthLoginFailed: BindingHandle,
+    };
+    await Login(platform, loginResult);
+  }
+
+  //处理绑定三方账号任务
+  function BindingHandle(data) {
+    console.log(data);
   }
 </script>

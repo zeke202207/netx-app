@@ -79,6 +79,15 @@ export const useUserStore = defineStore({
       this.roleList = [];
       this.sessionTimeout = false;
     },
+    async afterOAuthLogin(token: string) {
+      try {
+        // save token
+        this.setToken(token);
+        return this.afterLoginAction(true);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+    },
     /**
      * @description: login
      */

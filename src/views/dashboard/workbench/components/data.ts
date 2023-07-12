@@ -11,13 +11,9 @@ interface ContentInfoItem {
 
 export const changeLogInfoItems: ChangeLogInfoItem[] = [
   {
-    version: '1.0.0.3 [doing]',
+    version: '1.0.0.4 [doing]',
     changedate: '0000-00-00',
     content: [
-      {
-        iconname: 'doc',
-        info: '2023-07-01 ：完善文档',
-      },
       {
         iconname: 'collect',
         info: '2023-07-08 ：新功能收集',
@@ -25,6 +21,44 @@ export const changeLogInfoItems: ChangeLogInfoItem[] = [
       {
         iconname: 'coding',
         info: '2023-07-15 ：快乐的coding',
+      },
+    ],
+  },
+  {
+    version: '1.0.0.3',
+    changedate: '2023-07-07',
+    content: [
+      {
+        iconname: 'new',
+        info: '增加缓存及管理功能功能,实现了内存缓存及管理，支持自定义扩展',
+      },
+      {
+        iconname: 'new',
+        info: '增加用户头像上传功能',
+      },
+      {
+        iconname: 'beautifycode',
+        info: '优化增强功能',
+      },
+      {
+        iconname: '',
+        info: '     1. 添加github工作流，保证上传代码完整性',
+      },
+      {
+        iconname: '',
+        info: '     2. 重构文件系统模块，实现了本地文件存储，支持用户自定义扩展存储',
+      },
+      {
+        iconname: '',
+        info: '     3. 管道模式优化，使用起来更贴心',
+      },
+      {
+        iconname: '',
+        info: '     4. 后台api校验优化',
+      },
+      {
+        iconname: '',
+        info: '     5. 其他性能优化',
       },
     ],
   },
