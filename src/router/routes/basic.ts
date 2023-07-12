@@ -52,5 +52,3 @@ export const REDIRECT_ROUTE: AppRouteRecordRaw = {
     },
   ],
 };
-
-

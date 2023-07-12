@@ -73,7 +73,7 @@
     <Divider class="enter-x">{{ t('sys.login.otherSignIn') }}</Divider>
 
     <div class="flex justify-evenly enter-x" :class="`${prefixCls}-sign-in-way`">
-      <a :href="gittlogin"><SvgIcon name="gitee" :size="22" /></a>
+      <a :onClick="giteeLogin"><SvgIcon name="gitee" :size="22" /></a>
       <!--
       <GithubFilled />
       <WechatFilled />
@@ -89,6 +89,7 @@
       <a ref="https://beian.miit.gov.cn" target="_blank">辽ICP备2022010032号-1</a>
     </div>
   </Form>
+  <OAuthModal @register="registerOAuthModal" />
 </template>
 <script lang="ts" setup>
   import { reactive, ref, unref, computed } from 'vue';
@@ -111,6 +112,9 @@
   import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
   import { useDesign } from '/@/hooks/web/useDesign';
   //import { onKeyStroke } from '@vueuse/core';
+  import { useModal } from '/@/components/Modal';
+  import OAuthModal from './OAuthModal.vue';
+  import { Login, OAuthLoginResult } from './oAuthLogin';
 
   const ACol = Col;
   const ARow = Row;
@@ -127,7 +131,6 @@
   const formRef = ref();
   const loading = ref(false);
   const rememberMe = ref(false);
-  const gittlogin = ref('');
 
   const formData = reactive({
     account: 'zeke',
@@ -135,10 +138,13 @@
   });
 
   const { validForm } = useFormValid(formRef);
-
+  const [registerOAuthModal, { openModal }] = useModal();
   //onKeyStroke('Enter', handleLogin);
 
-  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
+  const getShow = computed(() => {
+    unref(getLoginState) === LoginStateEnum.LOGIN;
+    return {};
+  });
 
   async function handleLogin() {
     const data = await validForm();
@@ -168,5 +174,19 @@
     }
   }
 
-  async function giteeLogin() {}
+  async function giteeLogin() {
+    oLogin(0);
+  }
+
+  async function oLogin(platform: number) {
+    let loginResult: OAuthLoginResult = {
+      oAuthLoginFailed: BindingHandle,
+    };
+    await Login(platform, loginResult);
+  }
+
+  //处理绑定三方账号任务
+  function BindingHandle(data) {
+    console.log(data);
+  }
 </script>

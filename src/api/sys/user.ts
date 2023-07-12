@@ -1,6 +1,8 @@
 import { defHttp } from '/@/utils/http/axios';
 import { LoginParams, LoginResultModel, GetUserInfoModel } from './model/userModel';
 
+import { AuthModel, AuthLoginModel } from './model/oauthModel';
+
 import { ErrorMessageMode } from '/#/axios';
 
 enum Api {
@@ -8,6 +10,8 @@ enum Api {
   Logout = '/account/logout',
   GetUserInfo = '/account/getuserinfo',
   GetPermCode = '/account/getpermcode',
+  GetOAuthUrl = '/account/getoauthurl',
+  OAuthLogin = '/account/oauthlogin',
 }
 
 /**
@@ -38,4 +42,12 @@ export function getPermCode() {
 
 export function doLogout() {
   return defHttp.get({ url: Api.Logout });
+}
+
+export function oAuthUrl(params: AuthModel) {
+  return defHttp.post({ url: Api.GetOAuthUrl, params });
+}
+
+export function oAuthLogin(params: AuthLoginModel) {
+  return defHttp.post({ url: Api.OAuthLogin, params });
 }

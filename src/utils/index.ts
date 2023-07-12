@@ -50,7 +50,7 @@ export function openWindow(
 
   noopener && feature.push('noopener=yes');
   noreferrer && feature.push('noreferrer=yes');
-
+  debugger;
   window.open(url, target, feature.join(','));
 }
 
