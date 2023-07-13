@@ -88,8 +88,8 @@
     <div>
       <a ref="https://beian.miit.gov.cn" target="_blank">辽ICP备2022010032号-1</a>
     </div>
+    <OAuthModal @register="registerOAuthModal" />
   </Form>
-  <OAuthModal @register="registerOAuthModal" />
 </template>
 <script lang="ts" setup>
   import { reactive, ref, unref, computed } from 'vue';
@@ -114,7 +114,9 @@
   //import { onKeyStroke } from '@vueuse/core';
   import { useModal } from '/@/components/Modal';
   import OAuthModal from './OAuthModal.vue';
-  import { Login, OAuthLoginResult } from './oAuthLogin';
+  import { Login, Platform, OAuthLoginOption } from './oAuthLogin';
+  import { oAuthUrl, oAuthLogin } from '/@/api/sys/user';
+  import { AuthModel, AuthLoginModel } from '/@/api/sys/model/oauthModel';
 
   const ACol = Col;
   const ARow = Row;
@@ -141,10 +143,7 @@
   const [registerOAuthModal, { openModal }] = useModal();
   //onKeyStroke('Enter', handleLogin);
 
-  const getShow = computed(() => {
-    unref(getLoginState) === LoginStateEnum.LOGIN;
-    return {};
-  });
+  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
 
   async function handleLogin() {
     const data = await validForm();
@@ -175,18 +174,35 @@
   }
 
   async function giteeLogin() {
-    oLogin(0);
+    oLogin(Platform.Gitee);
   }
 
-  async function oLogin(platform: number) {
-    let loginResult: OAuthLoginResult = {
-      oAuthLoginFailed: BindingHandle,
+  async function oLogin(platform: Platform) {
+    let option: OAuthLoginOption = {
+      platform: platform,
+      applyAuthorization: applyAuthorization,
+      login: login,
+      loginResult: loginResult,
     };
-    await Login(platform, loginResult);
+    await Login(option);
   }
 
-  //处理绑定三方账号任务
-  function BindingHandle(data) {
-    console.log(data);
+  //申请授权
+  async function applyAuthorization(model: AuthModel) {
+    return await oAuthUrl(model);
+  }
+  //登录
+  async function login(loginModel: AuthLoginModel) {
+    return await oAuthLogin(loginModel);
+  }
+  //处理登录结果
+  async function loginResult(data) {
+    //1. 成功，token写入store
+    //2. 没有找到关联账号，弹出modal窗体，设置关联账号
+    if (data.Result == 0) {
+      await userStore.afterOAuthLogin(data.LoginResult.token);
+    } else {
+      openModal();
+    }
   }
 </script>
