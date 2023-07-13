@@ -1,11 +1,10 @@
-import { oAuthUrl, oAuthLogin } from '/@/api/sys/user';
 import { AuthModel, AuthLoginModel } from '/@/api/sys/model/oauthModel';
 import { ref } from 'vue';
 import { useUserStore } from '/@/store/modules/user';
 
 const oauthCode = ref('');
 const userStore = useUserStore();
-const loginResult = ref<OAuthLoginResult>();
+const options = ref<OAuthLoginOption>();
 
 async function receiveMessage(event) {
   const urlParam = getUrlParam(event.data.data);
@@ -20,16 +19,9 @@ async function receiveMessage(event) {
       Code: oauthCode.value,
       State: 'code',
     };
-    await oAuthLogin(loginModel).then(async (res) => {
+    await options.value?.login(loginModel).then(async (res) => {
       //console.log(res);
-      //处理三方登录结果
-      //1. 成功，token写入store
-      if (res.Result == 0) {
-        await userStore.afterOAuthLogin(res.LoginResult.token);
-      } else {
-        //2. 没有找到关联账号，设置关联账号
-        loginResult.value?.oAuthLoginFailed(res);
-      }
+      options.value?.loginResult(res);
     });
   }
 }
@@ -45,15 +37,15 @@ function getUrlParam(url: string) {
   return obj;
 }
 
-export async function Login(platform: number, oAuthLoginResult: OAuthLoginResult) {
-  loginResult.value = oAuthLoginResult;
+export async function Login(option: OAuthLoginOption) {
+  options.value = option;
   oauthCode.value = '';
   window.addEventListener('message', receiveMessage, false);
   const params: AuthModel = {
-    OAuthPlatform: platform,
+    OAuthPlatform: option.platform,
     State: 'code',
   };
-  await oAuthUrl(params).then((res) => {
+  await option.applyAuthorization(params).then((res) => {
     const newWindows = window.open(
       res,
       'oauth',
@@ -78,6 +70,21 @@ export async function Login(platform: number, oAuthLoginResult: OAuthLoginResult
   });
 }
 
-export interface OAuthLoginResult {
-  oAuthLoginFailed: (data: any) => void;
+export interface OAuthLoginOption {
+  //配置
+  platform: Platform;
+  //1.发起授权申请（获取code等）
+  applyAuthorization: (model: AuthModel) => Promise<any>;
+  //2.申请token
+  //applyToken: () => Promise<any>;
+  //3.申请资源
+  //applyResource: () => Promise<any>;
+  //4.登录结果
+  login: (model: AuthLoginModel) => Promise<any>;
+  //5.登录结果
+  loginResult: (result: any) => Promise<any>;
+}
+
+export enum Platform {
+  Gitee = 0,
 }

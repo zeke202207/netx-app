@@ -2,44 +2,23 @@
   <BasicModal
     destroyOnClose
     @register="register"
-    title="Modal Title"
+    title="关联账号"
     :maskClosable="false"
     :footer="null"
   >
-    <!--存在问题,不允许嵌套-->
-    <iframe :src="frameSrc" ref="frameRef" target="_self"></iframe>
+    这里设置账号关联第三方信息
   </BasicModal>
 </template>
 <script lang="ts">
   import { defineComponent, ref, watch } from 'vue';
   import { BasicModal, useModalInner } from '/@/components/Modal';
-  import { oAuthUrl, OAuthLogin } from '/@/api/sys/user';
-  import { AuthModel, AuthLoginModel } from '/@/api/sys/model/oauthModel';
 
   export default defineComponent({
     components: { BasicModal },
     setup() {
-      const frameSrc = ref('');
-      const [register, { setModalProps, redoModalHeight }] = useModalInner(async (data) => {
-        let params: AuthModel = {
-          OAuthPlatform: 0,
-          State: 'code',
-        };
-        await oAuthUrl(params).then((res) => {
-          //window.open(res, '_self');
-          frameSrc.value = res;
-          console.log(frameSrc.value);
-        });
-      });
-
-      return { register, frameSrc };
+      const [register, { setModalProps, redoModalHeight }] = useModalInner(async (data) => {});
+      return { register };
     },
   });
 </script>
-<style scoped>
-  .empty-tips {
-    height: 100px;
-    line-height: 100px;
-    text-align: center;
-  }
-</style>
+<style></style>
